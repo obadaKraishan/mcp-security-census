@@ -1,0 +1,14 @@
+{
+  "n_servers": 21643,
+  "with_code": 14353,
+  "code_status_counts": {
+    "ok": 14353,
+    "nan": 4453,
+    "not_found": 2548,
+    "no_files": 263,
+    "tree_unavailable": 24,
+    "dmca_blocked": 1,
+    "forbidden": 1
+  },
+  "generated_at_utc": "2026-08-15T19:37:50.806316+00:00"
+}

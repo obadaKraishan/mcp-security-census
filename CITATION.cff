@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite the paper below."
+title: "Same Name, Different Server: A Security Census of Silent Drift in the Model Context Protocol Ecosystem (replication package)"
+authors:
+  - family-names: "Kraishan"
+    given-names: "Obada"
+    affiliation: "Texas Tech University"
+year: 2026
+url: "https://github.com/<user>/mcp-security-census"
+license: MIT
+keywords:
+  - Model Context Protocol
+  - software supply chain
+  - registry security
+  - static analysis
+  - LLM agents
+preferred-citation:
+  type: conference-paper
+  title: "Same Name, Different Server: A Security Census of Silent Drift in the Model Context Protocol Ecosystem"
+  authors:
+    - family-names: "Kraishan"
+      given-names: "Obada"
+  year: 2026
+  conference:
+    name: "IEEE International Conference on Big Data (BigData 2026)"

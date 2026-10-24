@@ -1,0 +1,158 @@
+==============================================================================
+ RQ3 — Popularity and Security Posture
+==============================================================================
+ Research question : Does popularity predict a server's security posture?
+ Registry snapshot : 2026-08
+ Generated (UTC)   : 2026-10-24 14:17:27
+ Alpha             : 0.05   |   CI: 95%   |   p-adjustment: Benjamini-Hochberg
+ Bootstrap draws   : 5,000 (seed 42)
+==============================================================================
+
+
+------------------------------------------------------------------------------
+ Population and analysis sets
+------------------------------------------------------------------------------
+ servers scanned                                    14,353
+ with popularity data                               14,353
+ median stars                                            1
+ max stars                                         109,249
+ zero star servers                                   7,156
+ Star counts span several orders of magnitude and are heavily
+ zero-inflated, so associations use rank-based methods and the
+ regression uses log(1 + stars) rather than raw counts.
+
+------------------------------------------------------------------------------
+ Association — popularity vs findings
+------------------------------------------------------------------------------
+ Test          : Spearman rank correlation
+ n             : 14,353
+ rho           : 0.008, 95% CI [-0.008, 0.024]
+ p             : p = .335
+ 
+ READY-TO-PASTE (IEEE prose):
+ "popularity vs findings showed a non-significant rank correlation (rho = 0.01, p = .335, n = 14,353)."
+
+------------------------------------------------------------------------------
+ Association — popularity vs severity score
+------------------------------------------------------------------------------
+ Test          : Spearman rank correlation
+ n             : 14,353
+ rho           : 0.010, 95% CI [-0.006, 0.026]
+ p             : p = .231
+ 
+ READY-TO-PASTE (IEEE prose):
+ "popularity vs severity score showed a non-significant rank correlation (rho = 0.01, p = .231, n = 14,353)."
+
+------------------------------------------------------------------------------
+ Association — days since last push vs findings
+------------------------------------------------------------------------------
+ Test          : Spearman rank correlation
+ n             : 14,353
+ rho           : -0.033, 95% CI [-0.049, -0.016]
+ p             : p < .001
+ 
+ READY-TO-PASTE (IEEE prose):
+ "days since last push vs findings showed a significant rank correlation (rho = -0.03, p < .001, n = 14,353)."
+
+------------------------------------------------------------------------------
+ Association — repository age vs findings
+------------------------------------------------------------------------------
+ Test          : Spearman rank correlation
+ n             : 14,353
+ rho           : 0.087, 95% CI [0.071, 0.103]
+ p             : p < .001
+ 
+ READY-TO-PASTE (IEEE prose):
+ "repository age vs findings showed a significant rank correlation (rho = 0.09, p < .001, n = 14,353)."
+
+------------------------------------------------------------------------------
+ High-severity prevalence by popularity decile (1 = least popular)
+------------------------------------------------------------------------------
+ Class / group                        k        n     prev             95% CI
+ ---------------------------------------------------------------------------
+ decile 1                           148    1,396   10.60%     [ 9.09, 12.33]
+ decile 2                           264    1,422   18.57%     [16.63, 20.67]
+ decile 3                           177    1,457   12.15%     [10.57, 13.93]
+ decile 4                           109    1,436    7.59%     [ 6.33,  9.08]
+ decile 5                           110    1,419    7.75%     [ 6.47,  9.26]
+ decile 6                           158    1,450   10.90%     [ 9.39, 12.60]
+ decile 7                           149    1,441   10.34%     [ 8.87, 12.02]
+ decile 8                           175    1,441   12.14%     [10.56, 13.93]
+ decile 9                           200    1,440   13.89%     [12.20, 15.77]
+ decile 10                          109    1,451    7.51%     [ 6.27,  8.98]
+
+------------------------------------------------------------------------------
+ Categorical test — High-severity findings, most vs least popular
+------------------------------------------------------------------------------
+ Test          : Chi-square
+ n             : 2,847
+ Statistic     : chi2(1) = 7.90
+ p (raw)       : p = .005
+ Effect size   : Cramer's V = 0.049 (negligible)
+ Odds ratio    : OR = 0.685, 95% CI [0.529, 0.887]
+ 
+ READY-TO-PASTE (IEEE prose):
+ "High-severity findings, most vs least popular differed significantly (chi2(1) = 7.90, p = .005, Cramer's V = 0.05, OR = 0.68 [0.53, 0.89])."
+
+------------------------------------------------------------------------------
+ Logistic regression — predicting any high-severity finding
+------------------------------------------------------------------------------
+ Observations  : 14,353
+ Pseudo R^2    : 0.0495
+
+ Term                            OR                 95% CI          p
+ --------------------------------------------------------------------
+ const                        0.004         [0.003, 0.007]   p < .001
+ log_stars                    0.782         [0.749, 0.816]   p < .001
+ log_files                    1.944         [1.811, 2.087]   p < .001
+ log_age                      1.382         [1.288, 1.483]   p < .001
+ is_maintained                1.221         [0.889, 1.676]   p = .218
+ is_archived                  1.524         [1.049, 2.212]   p = .027
+ has_license                  1.015         [0.864, 1.192]   p = .859
+ 
+ Odds ratios are per unit of the log-transformed
+ predictor, so a value above 1 means the outcome becomes more
+ likely as the predictor increases. Size of the fetched code
+ base is included because a larger code base offers more
+ opportunities for any pattern to appear.
+
+------------------------------------------------------------------------------
+ Categorical test — High-severity findings, maintained (pushed within 180 days) vs stale
+------------------------------------------------------------------------------
+ Test          : Chi-square
+ n             : 14,353
+ Statistic     : chi2(1) = 0.03
+ p (raw)       : p = .857
+ Effect size   : Cramer's V = 0.000 (negligible)
+ Odds ratio    : OR = 1.040, 95% CI [0.770, 1.405]
+ 
+ READY-TO-PASTE (IEEE prose):
+ "High-severity findings, maintained (pushed within 180 days) vs stale did not differ significantly (chi2(1) = 0.03, p = .857, Cramer's V = 0.00, OR = 1.04 [0.77, 1.41])."
+
+------------------------------------------------------------------------------
+ Statistical approach and assumptions
+------------------------------------------------------------------------------
+ Prevalence estimates use Wilson score intervals, which remain
+ accurate for rare classes where the normal approximation fails.
+ Counts of findings per server are heavy-tailed and zero-inflated,
+ so distribution comparisons use non-parametric rank tests
+ (Mann-Whitney, Kruskal-Wallis) with Cliff's delta and
+ epsilon-squared effect sizes. Popularity is analysed with rank
+ methods because star counts span several orders of magnitude.
+ Families of related tests are corrected with Benjamini-Hochberg
+ at FDR 0.05; adjusted p-values are reported alongside
+ raw ones. Bootstrap intervals use 5,000 resamples under seed 42.
+
+------------------------------------------------------------------------------
+ Detection caveat
+------------------------------------------------------------------------------
+ Findings are produced by pattern-based static analysis of server
+ metadata and source code. They are risk indicators, not confirmed
+ vulnerabilities: the scanner cannot establish reachability or
+ exploitability. Precision and recall against a manually labelled
+ sample are reported in RQ4, and results are presented in
+ aggregate without naming individual servers.
+
+==============================================================================
+ END OF REPORT
+==============================================================================

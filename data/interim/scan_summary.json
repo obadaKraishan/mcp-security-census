@@ -1,0 +1,16 @@
+{
+  "repos_scanned": 13051,
+  "files_read": 248817,
+  "findings": 4719,
+  "tool_definitions": 69027,
+  "servers_by_class": {
+    "AA_ambient_authority": 127,
+    "CI_command_injection": 152,
+    "DEP_unpinned_dependency": 425,
+    "SEC_insecure_secrets": 99,
+    "SSRF_unvalidated_fetch": 191,
+    "TPT_token_passthrough": 98,
+    "UE_unauthenticated_exposure": 1373
+  },
+  "generated_at_utc": "2026-08-16T14:09:03.021158+00:00"
+}

@@ -1,0 +1,58 @@
+==============================================================================
+ LABELLING GUIDE — RQ4 ground truth
+ Snapshot : 2026-08
+ Generated: 2026-08-16T14:18:23.919376+00:00
+==============================================================================
+
+ HOW TO USE
+------------------------------------------------------------------------------
+ 1. Open labeling/labeling_sheet.csv in a spreadsheet.
+ 2. For each row read 'evidence'; open 'link' when unsure.
+ 3. Put 1 (true finding) or 0 (false positive) in 'label'.
+ 4. Save as labeling/labeling_sheet_completed.csv.
+ 5. Run labeling/02_score_scanner.py.
+
+ The sheet is shuffled so classes are interleaved; this reduces the
+ tendency to apply a different standard once a pattern is noticed.
+
+ STRATA
+------------------------------------------------------------------------------
+ flagged   : the scanner produced this finding. Label 1 if it is a
+             real instance of the class. These rows give PRECISION.
+ unflagged : the scanner produced nothing for this file. Label 1 only
+             if the file does contain an issue in any catalogue class
+             (say which in 'notes'). These rows give RECALL.
+
+ DECISION RULES BY CLASS
+------------------------------------------------------------------------------
+ AA_ambient_authority
+   TRUE if a permission, scope, allowed-directory, or origin setting actually grants unrestricted access ("*", "/", admin) in code the server runs. FALSE for prose, help text, type declarations, database queries, or a variable that merely happens to be called scope/root.
+
+ TPT_token_passthrough
+   TRUE if a credential taken from the caller (request, params, input, ctx) is placed into an outbound Authorization header, so the server acts on a token it did not mint. FALSE if the token comes from the server's own environment or config.
+
+ CI_command_injection
+   TRUE if a shell command is executed with shell=True or built by concatenating or interpolating values into a command string. FALSE for list-form argv calls, and for mentions inside comments, docstrings, or security-check scripts.
+
+ UE_unauthenticated_exposure
+   TRUE if the server binds to 0.0.0.0, disables authentication, or sets a wildcard CORS origin in code that runs. FALSE if it appears in a comment, or is clearly a local-development-only branch.
+
+ SEC_insecure_secrets
+   TRUE if a real credential value is embedded in source, or a secret value is written to logs. FALSE for environment-variable names, placeholders, documented vendor examples, and redaction tests.
+
+ DEP_unpinned_dependency
+   TRUE if a dependency is declared with no version constraint or a floating tag (*, latest, N.x), or a remote script is piped to a shell. FALSE for engine/runtime fields and non-dependency keys.
+
+ SSRF_unvalidated_fetch
+   TRUE if an outbound request targets a URL taken from caller input, or TLS verification is disabled in code that runs. FALSE for property lookups that merely resemble a fetch, and for comments.
+
+ GENERAL PRINCIPLES
+------------------------------------------------------------------------------
+ - Judge the code as written, not the developer's intent.
+ - Comments, docstrings, and prose are never true findings.
+ - A pattern in a security-checking script is not a finding.
+ - When genuinely undecidable, label 0 and explain in 'notes';
+   this keeps precision conservative rather than flattering.
+ - Do not revise earlier labels after forming a theory; note the
+   doubt instead, so the measurement stays honest.
+==============================================================================

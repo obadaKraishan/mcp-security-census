@@ -1,0 +1,81 @@
+========================================================================================================
+ CODEBOOK — master.csv variable dictionary
+ Snapshot : 2026-08
+ Generated: 2026-10-24T14:17:18.587617+00:00
+ Variables: 68   Servers: 21,643
+========================================================================================================
+ Variable                       Type      Unit         Cover  Definition
+--------------------------------------------------------------------------------------------------------
+ name                           str       -           100.0%  Canonical server name in the MCP registry
+ version                        str       -           100.0%  Latest published version string
+ title                          str       -            53.1%  Human-readable server title
+ description                    str       -           100.0%  Server description text
+ repo_url                       str       -            79.5%  Declared source repository URL
+ owner                          str       -            79.4%  GitHub owner parsed from repo_url
+ repo                           str       -            79.4%  GitHub repository name parsed from repo_url
+ has_repo                       bool      0/1         100.0%  1 if the record declares a repository URL
+ status                         str       -           100.0%  Registry status (active/deprecated)
+ is_deprecated                  int64     0/1         100.0%  1 if registry status is deprecated
+ published_at                   str       UTC         100.0%  Timestamp of the latest version
+ updated_at                     str       UTC         100.0%  Timestamp of the last registry update
+ n_versions                     int64     count       100.0%  Published versions for this server
+ first_published                str       UTC         100.0%  Timestamp of the earliest version
+ last_published                 str       UTC         100.0%  Timestamp of the most recent version
+ n_packages                     int64     count       100.0%  Package entries in the latest version
+ package_types                  str       -            52.4%  Package registries used (semicolon separated)
+ primary_package                str       -           100.0%  First declared package registry, else 'none'
+ n_remotes                      int64     count       100.0%  Remote endpoints declared
+ remote_types                   str       -            51.2%  Transport types declared
+ primary_transport              str       -           100.0%  First declared transport, else 'none'
+ has_remote                     int64     0/1         100.0%  1 if any remote endpoint is declared
+ code_status                    str       -            79.4%  Outcome of source fetch (ok/not_found/forbidden/...)
+ has_code                       bool      0/1         100.0%  1 if source files were fetched and scanned
+ n_files                        float64   count        66.3%  Source files fetched for the repository
+ bytes_fetched                  float64   bytes        66.3%  Bytes of source fetched
+ stars                          float64   count        67.6%  GitHub stargazer count
+ log_stars                      float64   log count    67.6%  log(1 + stars); stars span several orders of magnitude
+ language                       str       -            61.4%  Primary repository language reported by GitHub
+ archived                       object    0/1          67.6%  1 if the repository is archived
+ open_issues                    float64   count        67.6%  Open issues on the repository
+ license                        str       -            57.9%  SPDX license identifier, blank if none
+ days_since_push                float64   days         67.6%  Days since the last push to the repository
+ repo_age_days                  float64   days         67.6%  Days since repository creation
+ n_AA_ambient_authority         float64   count        66.3%  Findings for Ambient authority (over-broad or unscoped permissions)
+ n_CI_command_injection         float64   count        66.3%  Findings for Command / code injection in handlers
+ n_DEP_unpinned_dependency      float64   count        66.3%  Findings for Unpinned or unverified dependency
+ n_SEC_insecure_secrets         float64   count        66.3%  Findings for Insecure secret handling
+ n_SSRF_unvalidated_fetch       float64   count        66.3%  Findings for Unvalidated outbound fetch (SSRF surface)
+ n_TPT_token_passthrough        float64   count        66.3%  Findings for Token passthrough / confused deputy
+ n_UE_unauthenticated_exposure  float64   count        66.3%  Findings for Unauthenticated network exposure
+ n_TP_tool_poisoning            float64   count        66.3%  Findings for Tool poisoning (hidden instructions in tool metadata)
+ has_TP_tool_poisoning          int64     0/1         100.0%  1 if any Tool poisoning (hidden instructions in tool metadata) finding
+ has_AA_ambient_authority       int64     0/1         100.0%  1 if any Ambient authority (over-broad or unscoped permissions) finding
+ has_TPT_token_passthrough      int64     0/1         100.0%  1 if any Token passthrough / confused deputy finding
+ has_CI_command_injection       int64     0/1         100.0%  1 if any Command / code injection in handlers finding
+ has_UE_unauthenticated_exposure int64     0/1         100.0%  1 if any Unauthenticated network exposure finding
+ has_SEC_insecure_secrets       int64     0/1         100.0%  1 if any Insecure secret handling finding
+ has_DEP_unpinned_dependency    int64     0/1         100.0%  1 if any Unpinned or unverified dependency finding
+ has_SSRF_unvalidated_fetch     int64     0/1         100.0%  1 if any Unvalidated outbound fetch (SSRF surface) finding
+ n_findings_total               float64   count        66.3%  Findings across all threat classes
+ n_classes_hit                  float64   count        66.3%  Distinct threat classes with >=1 finding
+ severity_score                 float64   weighted     66.3%  Sum of severity weights over classes present
+ has_high_severity              float64   0/1          66.3%  1 if any high-severity class is present
+ any_finding                    int64     0/1         100.0%  1 if any finding was produced
+ n_tools_found                  float64   count       100.0%  Tool definitions recovered from source
+ mean_tool_desc_len             float64   chars        22.7%  Mean characters per tool description
+ n_drift_events                 float64   count        41.1%  Version-to-version change events detected
+ n_silent_drift                 float64   count        41.1%  Events where identifiers held but meaning or destination changed
+ n_breaking_drift               float64   count        41.1%  Events withdrawing a package or endpoint
+ median_days_between            float64   days         21.0%  Median days between changed versions
+ has_silent_drift               float64   0/1          41.1%  1 if any silent-semantic drift event occurred
+ popularity_decile              float64   1-10         67.6%  Decile of star rank, 1 = least popular
+ is_popular                     int64     0/1         100.0%  1 if stars >= 10
+ is_maintained                  int64     0/1         100.0%  1 if pushed within the last 180 days
+ is_archived                    int64     0/1         100.0%  archived with NaN treated as 0
+ has_license                    int64     0/1         100.0%  1 if a license is declared
+ findings_per_file              float64   per file     66.3%  Findings divided by files scanned
+--------------------------------------------------------------------------------------------------------
+ Coverage note: finding columns are populated only for servers
+ whose source was fetched; others are NaN by design so that
+ prevalence denominators stay correct.
+========================================================================================================

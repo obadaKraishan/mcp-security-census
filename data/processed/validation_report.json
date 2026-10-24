@@ -1,0 +1,57 @@
+{
+  "generated_at_utc": "2026-10-24T14:17:17.708418+00:00",
+  "n_servers": 21643,
+  "n_scanned": 14353,
+  "failures": [],
+  "warnings": [],
+  "prevalence": [
+    {
+      "class": "TP_tool_poisoning",
+      "k": 0,
+      "n": 14353,
+      "prevalence": 0.0
+    },
+    {
+      "class": "AA_ambient_authority",
+      "k": 127,
+      "n": 14353,
+      "prevalence": 0.008848324392113147
+    },
+    {
+      "class": "TPT_token_passthrough",
+      "k": 98,
+      "n": 14353,
+      "prevalence": 0.006827840869504633
+    },
+    {
+      "class": "CI_command_injection",
+      "k": 152,
+      "n": 14353,
+      "prevalence": 0.0105901205322929
+    },
+    {
+      "class": "UE_unauthenticated_exposure",
+      "k": 1373,
+      "n": 14353,
+      "prevalence": 0.09565944401867206
+    },
+    {
+      "class": "SEC_insecure_secrets",
+      "k": 99,
+      "n": 14353,
+      "prevalence": 0.006897512715111824
+    },
+    {
+      "class": "DEP_unpinned_dependency",
+      "k": 425,
+      "n": 14353,
+      "prevalence": 0.029610534383055807
+    },
+    {
+      "class": "SSRF_unvalidated_fetch",
+      "k": 191,
+      "n": 14353,
+      "prevalence": 0.013307322510973316
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+class,name,surface,severity,severity_weight,n_patterns,rationale
+TP_tool_poisoning,Tool poisoning (hidden instructions in tool metadata),tool,high,5,4,direct path to compromise if reachable
+AA_ambient_authority,Ambient authority (over-broad or unscoped permissions),code,medium,3,4,weakens isolation or confidentiality
+TPT_token_passthrough,Token passthrough / confused deputy,code,high,5,5,direct path to compromise if reachable
+CI_command_injection,Command / code injection in handlers,code,high,5,5,direct path to compromise if reachable
+UE_unauthenticated_exposure,Unauthenticated network exposure,code,high,5,4,direct path to compromise if reachable
+SEC_insecure_secrets,Insecure secret handling,code,medium,3,3,weakens isolation or confidentiality
+DEP_unpinned_dependency,Unpinned or unverified dependency,manifest,low,1,3,supply-chain hygiene concern
+SSRF_unvalidated_fetch,Unvalidated outbound fetch (SSRF surface),code,medium,3,3,weakens isolation or confidentiality

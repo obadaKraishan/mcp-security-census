@@ -1,0 +1,44 @@
+============================================================================
+ VERSION DRIFT REPORT
+ Generated : 2026-08-16T14:09:19.609179+00:00
+ Snapshot  : 2026-08
+============================================================================
+ Multi-version servers      : 8,900
+ Version transitions compared: 37,160
+ Drift events detected       : 16,627
+----------------------------------------------------------------------------
+ Servers with any drift      : 4,547 (51.1%)
+   silent-semantic drift     : 3,612 (40.6%)
+   breaking drift            : 1,395 (15.7%)
+----------------------------------------------------------------------------
+ Highest-risk signals:
+   endpoint host redirected  : 370 (4.16%)
+   package withdrawn         : 840 (9.44%)
+----------------------------------------------------------------------------
+ Events by drift type:
+   silent_semantic                 5,797
+   additive                        5,699
+   breaking                        5,131
+ Events by surface:
+   package                         9,202
+   description                     4,909
+   remote                          2,516
+ Events by change kind:
+   description_changed             4,909
+   package_added                   4,524
+   package_removed                 4,321
+   remote_added                    1,175
+   remote_removed                    810
+   remote_host_redirected            441
+   runtime_hint_changed              343
+   transport_changed                  90
+   package_registry_changed           14
+----------------------------------------------------------------------------
+ Median days between changed versions: 1
+----------------------------------------------------------------------------
+ NOTE: the registry does not version tool definitions, so a
+ client cannot detect a tool-behaviour change from the registry
+ alone. Drift is measured on description, package, and remote
+ endpoint fields; endpoint redirection is the closest
+ observable analogue of a rug pull.
+============================================================================

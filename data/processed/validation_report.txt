@@ -1,0 +1,106 @@
+============================================================================
+ VALIDATION GATE — master.csv
+ Snapshot: 2026-08   Run: 2026-10-24 14:17:17 UTC
+============================================================================
+
+----------------------------------------------------------------------------
+ 1/6  Schema and identity
+----------------------------------------------------------------------------
+  [ OK ] required columns present                     68 columns
+  [ OK ] server names unique                          0 duplicates
+  [ OK ] row count plausible                          21,643 servers
+
+----------------------------------------------------------------------------
+ 2/6  NaN discipline on finding columns
+----------------------------------------------------------------------------
+  [ OK ] scan population non-empty                    14,353 servers have fetched code
+  [ OK ] unscanned servers are NaN, not zero          no zero-leakage into unscanned rows
+  [ OK ] has_high_severity NaN when unscanned         0 leaked rows
+  [ OK ] drift NaN for single-version servers         0 leaked rows
+
+----------------------------------------------------------------------------
+ 3/6  Value ranges
+----------------------------------------------------------------------------
+  [ OK ] stars within [0, inf]                        0 out of range
+  [ OK ] n_versions within [1, inf]                   0 out of range
+  [ OK ] n_files within [0, inf]                      0 out of range
+  [ OK ] severity_score within [0, 40]                0 out of range
+  [ OK ] days_since_push within [0, inf]              0 out of range
+  [ OK ] popularity_decile within [1, 10]             0 out of range
+  [ OK ] finding flags binary                         all has_* columns are 0/1 or NaN
+
+----------------------------------------------------------------------------
+ 4/6  Internal consistency
+----------------------------------------------------------------------------
+  [ OK ] TP_tool_poisoning count matches findings file master 0 vs findings 0
+  [ OK ] AA_ambient_authority count matches findings file master 127 vs findings 127
+  [ OK ] TPT_token_passthrough count matches findings file master 98 vs findings 98
+  [ OK ] classes_hit <= findings_total                0 rows violate
+
+----------------------------------------------------------------------------
+ 5/6  Threat-class prevalence (scan population)
+----------------------------------------------------------------------------
+  Class                                k   prevalence             95% CI
+  ----------------------------------------------------------------------
+  TP_tool_poisoning                    0       0.00%      [ 0.00,  0.03]
+  AA_ambient_authority               127       0.88%      [ 0.74,  1.05]
+  TPT_token_passthrough               98       0.68%      [ 0.56,  0.83]
+  CI_command_injection               152       1.06%      [ 0.90,  1.24]
+  UE_unauthenticated_exposure      1,373       9.57%      [ 9.10, 10.06]
+  SEC_insecure_secrets                99       0.69%      [ 0.57,  0.84]
+  DEP_unpinned_dependency            425       2.96%      [ 2.70,  3.25]
+  SSRF_unvalidated_fetch             191       1.33%      [ 1.16,  1.53]
+
+----------------------------------------------------------------------------
+ 6/6  Evidence review (3 samples per class)
+----------------------------------------------------------------------------
+  Read these before trusting the prevalence above. If a line
+  looks like ordinary configuration rather than a risk, the
+  pattern needs tightening.
+
+  TP_tool_poisoning  (0 findings, 0 servers)
+      (no findings)
+
+  AA_ambient_authority  (188 findings, 127 servers)
+      client.js                          | scope = 'all',
+      souyun_poem.py                     | poems = search_poems(theme, scope="All", dynasty=dynasty, ty...
+      tools.py                           | (scope='all'). Returns line matches with paths and line numb...
+
+  TPT_token_passthrough  (193 findings, 98 servers)
+      mcp-config.ts                      | Authorization: `Bearer $${input.remoteTokenEnv}`
+      index.ts                           | Authorization: `Bearer ${ctx.google_ads.accessToken}`,
+      route.ts                           | const FORWARD_HEADERS = [
+
+  CI_command_injection  (207 findings, 152 servers)
+      redcon.ts                          | const result = await exec(args, opts);
+      git.js                             | * first failing step and reports it. `exec(args, cwd)` is in...
+      check_security_gate.py             | yaml.load, shell=True, subprocess given a command STRING ins...
+
+  UE_unauthenticated_exposure  (2,756 findings, 1,373 servers)
+      golden-bundle.ts                   | .replace(/uvicorn\.run\(\s*app\s*,\s*host=['"]0\.0\.0\.0['"]...
+      index.ts                           | auth: false,
+      mcp-wrapper.py                     | "Access-Control-Allow-Origin": "*",
+
+  SEC_insecure_secrets  (132 findings, 99 servers)
+      index.js                           | [withheld: credential material]
+      api_key.toml                       | [withheld: credential material]
+      mcp-config.ts                      | [withheld: credential material]
+
+  DEP_unpinned_dependency  (918 findings, 425 servers)
+      requirements.txt                   | httpx
+      requirements.txt                   | uvicorn
+      requirements.txt                   | requests
+
+  SSRF_unvalidated_fetch  (325 findings, 191 servers)
+      network.ts                         | rejectUnauthorized: false,
+      verify-tool-official.mjs           | return { rejectUnauthorized: false };
+      runtime.ts                         | response = await fetch(targetUrl, {
+
+----------------------------------------------------------------------------
+ SUMMARY
+----------------------------------------------------------------------------
+  [ OK ] No blocking issues.
+
+============================================================================
+ MASTER TABLE VALID — safe to run analyses
+============================================================================

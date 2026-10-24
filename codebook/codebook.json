@@ -1,0 +1,682 @@
+[
+  {
+    "variable": "name",
+    "dtype": "str",
+    "definition": "Canonical server name in the MCP registry",
+    "unit": "-",
+    "source_stage": "registry",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "app.getdialer/dialer"
+  },
+  {
+    "variable": "version",
+    "dtype": "str",
+    "definition": "Latest published version string",
+    "unit": "-",
+    "source_stage": "registry",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "1.0.1"
+  },
+  {
+    "variable": "title",
+    "dtype": "str",
+    "definition": "Human-readable server title",
+    "unit": "-",
+    "source_stage": "registry",
+    "non_null": 11494,
+    "coverage": 0.5311,
+    "example": "Unified Offer Protocol MCP Server"
+  },
+  {
+    "variable": "description",
+    "dtype": "str",
+    "definition": "Server description text",
+    "unit": "-",
+    "source_stage": "registry",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "An MCP server that provides lets you make ou"
+  },
+  {
+    "variable": "repo_url",
+    "dtype": "str",
+    "definition": "Declared source repository URL",
+    "unit": "-",
+    "source_stage": "registry",
+    "non_null": 17213,
+    "coverage": 0.7953,
+    "example": "https://github.com/pulsemcp/mcp-servers"
+  },
+  {
+    "variable": "owner",
+    "dtype": "str",
+    "definition": "GitHub owner parsed from repo_url",
+    "unit": "-",
+    "source_stage": "clean_and_merge",
+    "non_null": 17190,
+    "coverage": 0.7943,
+    "example": "pulsemcp"
+  },
+  {
+    "variable": "repo",
+    "dtype": "str",
+    "definition": "GitHub repository name parsed from repo_url",
+    "unit": "-",
+    "source_stage": "clean_and_merge",
+    "non_null": 17190,
+    "coverage": 0.7943,
+    "example": "mcp-servers"
+  },
+  {
+    "variable": "has_repo",
+    "dtype": "bool",
+    "definition": "1 if the record declares a repository URL",
+    "unit": "0/1",
+    "source_stage": "clean_and_merge",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "False"
+  },
+  {
+    "variable": "status",
+    "dtype": "str",
+    "definition": "Registry status (active/deprecated)",
+    "unit": "-",
+    "source_stage": "registry",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "active"
+  },
+  {
+    "variable": "is_deprecated",
+    "dtype": "int64",
+    "definition": "1 if registry status is deprecated",
+    "unit": "0/1",
+    "source_stage": "clean_and_merge",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "published_at",
+    "dtype": "str",
+    "definition": "Timestamp of the latest version",
+    "unit": "UTC",
+    "source_stage": "registry",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "2025-09-09T00:16:49.107843Z"
+  },
+  {
+    "variable": "updated_at",
+    "dtype": "str",
+    "definition": "Timestamp of the last registry update",
+    "unit": "UTC",
+    "source_stage": "registry",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "2025-09-09T00:16:49.107843Z"
+  },
+  {
+    "variable": "n_versions",
+    "dtype": "int64",
+    "definition": "Published versions for this server",
+    "unit": "count",
+    "source_stage": "version history",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "2"
+  },
+  {
+    "variable": "first_published",
+    "dtype": "str",
+    "definition": "Timestamp of the earliest version",
+    "unit": "UTC",
+    "source_stage": "version history",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "2025-09-08T23:47:09.452138Z"
+  },
+  {
+    "variable": "last_published",
+    "dtype": "str",
+    "definition": "Timestamp of the most recent version",
+    "unit": "UTC",
+    "source_stage": "version history",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "2025-09-09T00:16:49.107843Z"
+  },
+  {
+    "variable": "n_packages",
+    "dtype": "int64",
+    "definition": "Package entries in the latest version",
+    "unit": "count",
+    "source_stage": "registry",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "package_types",
+    "dtype": "str",
+    "definition": "Package registries used (semicolon separated)",
+    "unit": "-",
+    "source_stage": "registry",
+    "non_null": 11337,
+    "coverage": 0.5238,
+    "example": "npm"
+  },
+  {
+    "variable": "primary_package",
+    "dtype": "str",
+    "definition": "First declared package registry, else 'none'",
+    "unit": "-",
+    "source_stage": "clean_and_merge",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "none"
+  },
+  {
+    "variable": "n_remotes",
+    "dtype": "int64",
+    "definition": "Remote endpoints declared",
+    "unit": "count",
+    "source_stage": "registry",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "2"
+  },
+  {
+    "variable": "remote_types",
+    "dtype": "str",
+    "definition": "Transport types declared",
+    "unit": "-",
+    "source_stage": "registry",
+    "non_null": 11083,
+    "coverage": 0.5121,
+    "example": "sse;streamable-http"
+  },
+  {
+    "variable": "primary_transport",
+    "dtype": "str",
+    "definition": "First declared transport, else 'none'",
+    "unit": "-",
+    "source_stage": "clean_and_merge",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "sse"
+  },
+  {
+    "variable": "has_remote",
+    "dtype": "int64",
+    "definition": "1 if any remote endpoint is declared",
+    "unit": "0/1",
+    "source_stage": "clean_and_merge",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "1"
+  },
+  {
+    "variable": "code_status",
+    "dtype": "str",
+    "definition": "Outcome of source fetch (ok/not_found/forbidden/...)",
+    "unit": "-",
+    "source_stage": "code fetch",
+    "non_null": 17190,
+    "coverage": 0.7943,
+    "example": "ok"
+  },
+  {
+    "variable": "has_code",
+    "dtype": "bool",
+    "definition": "1 if source files were fetched and scanned",
+    "unit": "0/1",
+    "source_stage": "clean_and_merge",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "False"
+  },
+  {
+    "variable": "n_files",
+    "dtype": "float64",
+    "definition": "Source files fetched for the repository",
+    "unit": "count",
+    "source_stage": "code fetch",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "40.0"
+  },
+  {
+    "variable": "bytes_fetched",
+    "dtype": "float64",
+    "definition": "Bytes of source fetched",
+    "unit": "bytes",
+    "source_stage": "code fetch",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "251132.0"
+  },
+  {
+    "variable": "stars",
+    "dtype": "float64",
+    "definition": "GitHub stargazer count",
+    "unit": "count",
+    "source_stage": "GitHub API",
+    "non_null": 14640,
+    "coverage": 0.6764,
+    "example": "76.0"
+  },
+  {
+    "variable": "log_stars",
+    "dtype": "float64",
+    "definition": "log(1 + stars); stars span several orders of magnitude",
+    "unit": "log count",
+    "source_stage": "clean_and_merge",
+    "non_null": 14640,
+    "coverage": 0.6764,
+    "example": "4.343805421853684"
+  },
+  {
+    "variable": "language",
+    "dtype": "str",
+    "definition": "Primary repository language reported by GitHub",
+    "unit": "-",
+    "source_stage": "GitHub API",
+    "non_null": 13285,
+    "coverage": 0.6138,
+    "example": "TypeScript"
+  },
+  {
+    "variable": "archived",
+    "dtype": "object",
+    "definition": "1 if the repository is archived",
+    "unit": "0/1",
+    "source_stage": "GitHub API",
+    "non_null": 14640,
+    "coverage": 0.6764,
+    "example": "False"
+  },
+  {
+    "variable": "open_issues",
+    "dtype": "float64",
+    "definition": "Open issues on the repository",
+    "unit": "count",
+    "source_stage": "GitHub API",
+    "non_null": 14640,
+    "coverage": 0.6764,
+    "example": "39.0"
+  },
+  {
+    "variable": "license",
+    "dtype": "str",
+    "definition": "SPDX license identifier, blank if none",
+    "unit": "-",
+    "source_stage": "GitHub API",
+    "non_null": 12534,
+    "coverage": 0.5791,
+    "example": "MIT"
+  },
+  {
+    "variable": "days_since_push",
+    "dtype": "float64",
+    "definition": "Days since the last push to the repository",
+    "unit": "days",
+    "source_stage": "feature engineering",
+    "non_null": 14640,
+    "coverage": 0.6764,
+    "example": "20.0"
+  },
+  {
+    "variable": "repo_age_days",
+    "dtype": "float64",
+    "definition": "Days since repository creation",
+    "unit": "days",
+    "source_stage": "feature engineering",
+    "non_null": 14640,
+    "coverage": 0.6764,
+    "example": "460.0"
+  },
+  {
+    "variable": "n_AA_ambient_authority",
+    "dtype": "float64",
+    "definition": "Findings for Ambient authority (over-broad or unscoped permissions)",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "n_CI_command_injection",
+    "dtype": "float64",
+    "definition": "Findings for Command / code injection in handlers",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "n_DEP_unpinned_dependency",
+    "dtype": "float64",
+    "definition": "Findings for Unpinned or unverified dependency",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "n_SEC_insecure_secrets",
+    "dtype": "float64",
+    "definition": "Findings for Insecure secret handling",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "n_SSRF_unvalidated_fetch",
+    "dtype": "float64",
+    "definition": "Findings for Unvalidated outbound fetch (SSRF surface)",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "n_TPT_token_passthrough",
+    "dtype": "float64",
+    "definition": "Findings for Token passthrough / confused deputy",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "n_UE_unauthenticated_exposure",
+    "dtype": "float64",
+    "definition": "Findings for Unauthenticated network exposure",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "n_TP_tool_poisoning",
+    "dtype": "float64",
+    "definition": "Findings for Tool poisoning (hidden instructions in tool metadata)",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "has_TP_tool_poisoning",
+    "dtype": "int64",
+    "definition": "1 if any Tool poisoning (hidden instructions in tool metadata) finding",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "has_AA_ambient_authority",
+    "dtype": "int64",
+    "definition": "1 if any Ambient authority (over-broad or unscoped permissions) finding",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "has_TPT_token_passthrough",
+    "dtype": "int64",
+    "definition": "1 if any Token passthrough / confused deputy finding",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "has_CI_command_injection",
+    "dtype": "int64",
+    "definition": "1 if any Command / code injection in handlers finding",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "has_UE_unauthenticated_exposure",
+    "dtype": "int64",
+    "definition": "1 if any Unauthenticated network exposure finding",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "has_SEC_insecure_secrets",
+    "dtype": "int64",
+    "definition": "1 if any Insecure secret handling finding",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "has_DEP_unpinned_dependency",
+    "dtype": "int64",
+    "definition": "1 if any Unpinned or unverified dependency finding",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "has_SSRF_unvalidated_fetch",
+    "dtype": "int64",
+    "definition": "1 if any Unvalidated outbound fetch (SSRF surface) finding",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "n_findings_total",
+    "dtype": "float64",
+    "definition": "Findings across all threat classes",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "n_classes_hit",
+    "dtype": "float64",
+    "definition": "Distinct threat classes with >=1 finding",
+    "unit": "count",
+    "source_stage": "feature engineering",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "severity_score",
+    "dtype": "float64",
+    "definition": "Sum of severity weights over classes present",
+    "unit": "weighted",
+    "source_stage": "feature engineering",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "has_high_severity",
+    "dtype": "float64",
+    "definition": "1 if any high-severity class is present",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  },
+  {
+    "variable": "any_finding",
+    "dtype": "int64",
+    "definition": "1 if any finding was produced",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "n_tools_found",
+    "dtype": "float64",
+    "definition": "Tool definitions recovered from source",
+    "unit": "count",
+    "source_stage": "scanner",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0.0"
+  },
+  {
+    "variable": "mean_tool_desc_len",
+    "dtype": "float64",
+    "definition": "Mean characters per tool description",
+    "unit": "chars",
+    "source_stage": "feature engineering",
+    "non_null": 4903,
+    "coverage": 0.2265,
+    "example": "378.0"
+  },
+  {
+    "variable": "n_drift_events",
+    "dtype": "float64",
+    "definition": "Version-to-version change events detected",
+    "unit": "count",
+    "source_stage": "drift detection",
+    "non_null": 8900,
+    "coverage": 0.4112,
+    "example": "1.0"
+  },
+  {
+    "variable": "n_silent_drift",
+    "dtype": "float64",
+    "definition": "Events where identifiers held but meaning or destination changed",
+    "unit": "count",
+    "source_stage": "drift detection",
+    "non_null": 8900,
+    "coverage": 0.4112,
+    "example": "1.0"
+  },
+  {
+    "variable": "n_breaking_drift",
+    "dtype": "float64",
+    "definition": "Events withdrawing a package or endpoint",
+    "unit": "count",
+    "source_stage": "drift detection",
+    "non_null": 8900,
+    "coverage": 0.4112,
+    "example": "0.0"
+  },
+  {
+    "variable": "median_days_between",
+    "dtype": "float64",
+    "definition": "Median days between changed versions",
+    "unit": "days",
+    "source_stage": "feature engineering",
+    "non_null": 4547,
+    "coverage": 0.2101,
+    "example": "0.0"
+  },
+  {
+    "variable": "has_silent_drift",
+    "dtype": "float64",
+    "definition": "1 if any silent-semantic drift event occurred",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 8900,
+    "coverage": 0.4112,
+    "example": "1.0"
+  },
+  {
+    "variable": "popularity_decile",
+    "dtype": "float64",
+    "definition": "Decile of star rank, 1 = least popular",
+    "unit": "1-10",
+    "source_stage": "feature engineering",
+    "non_null": 14640,
+    "coverage": 0.6764,
+    "example": "10.0"
+  },
+  {
+    "variable": "is_popular",
+    "dtype": "int64",
+    "definition": "1 if stars >= 10",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "is_maintained",
+    "dtype": "int64",
+    "definition": "1 if pushed within the last 180 days",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "is_archived",
+    "dtype": "int64",
+    "definition": "archived with NaN treated as 0",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "has_license",
+    "dtype": "int64",
+    "definition": "1 if a license is declared",
+    "unit": "0/1",
+    "source_stage": "feature engineering",
+    "non_null": 21643,
+    "coverage": 1.0,
+    "example": "0"
+  },
+  {
+    "variable": "findings_per_file",
+    "dtype": "float64",
+    "definition": "Findings divided by files scanned",
+    "unit": "per file",
+    "source_stage": "feature engineering",
+    "non_null": 14353,
+    "coverage": 0.6632,
+    "example": "0.0"
+  }
+]

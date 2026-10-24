@@ -1,0 +1,131 @@
+==============================================================================
+ RQ1 — Threat-Class Prevalence Across the Server Population
+==============================================================================
+ Research question : How prevalent is each MCP threat class across the public server population?
+ Registry snapshot : 2026-08
+ Generated (UTC)   : 2026-10-24 14:17:21
+ Alpha             : 0.05   |   CI: 95%   |   p-adjustment: Benjamini-Hochberg
+ Bootstrap draws   : 5,000 (seed 42)
+==============================================================================
+
+
+------------------------------------------------------------------------------
+ Population and analysis sets
+------------------------------------------------------------------------------
+ servers in registry                                21,643
+ servers with repository url                        17,190
+ servers scanned                                    14,353
+ servers with any finding                            2,183
+ Prevalence is computed over the scan population: servers whose
+ source code was retrieved. Servers without retrievable code are
+ excluded from denominators rather than assumed clean.
+
+------------------------------------------------------------------------------
+ Threat-class prevalence (scan population)
+------------------------------------------------------------------------------
+ Class / group                        k        n     prev             95% CI
+ ---------------------------------------------------------------------------
+ UE_unauthenticated_exposure      1,373   14,353    9.57%     [ 9.10, 10.06]
+ DEP_unpinned_dependency            425   14,353    2.96%     [ 2.70,  3.25]
+ SSRF_unvalidated_fetch             191   14,353    1.33%     [ 1.16,  1.53]
+ CI_command_injection               152   14,353    1.06%     [ 0.90,  1.24]
+ AA_ambient_authority               127   14,353    0.88%     [ 0.74,  1.05]
+ SEC_insecure_secrets                99   14,353    0.69%     [ 0.57,  0.84]
+ TPT_token_passthrough               98   14,353    0.68%     [ 0.56,  0.83]
+ TP_tool_poisoning                    0   14,353    0.00%     [ 0.00,  0.03]
+
+------------------------------------------------------------------------------
+ Zero-prevalence classes
+------------------------------------------------------------------------------
+ TP_tool_poisoning: 0 of 14,353 servers. The 95% Wilson upper bound is 0.027%, so prevalence above that is inconsistent with the data. Absence of detection is not proof of absence: pattern-based detection cannot observe obfuscated variants.
+
+------------------------------------------------------------------------------
+ Severity rollup
+------------------------------------------------------------------------------
+ Class / group                        k        n     prev             95% CI
+ ---------------------------------------------------------------------------
+ any high-severity class          1,599   14,353   11.14%     [10.64, 11.67]
+ any medium-severity class          412   14,353    2.87%     [ 2.61,  3.16]
+ any low-severity class             425   14,353    2.96%     [ 2.70,  3.25]
+ any class                        2,183   14,353   15.21%     [14.63, 15.81]
+
+------------------------------------------------------------------------------
+ Number of distinct threat classes per server
+------------------------------------------------------------------------------
+  classes_present  servers  share
+                0    12170 0.8479
+                1     1909 0.1330
+                2      266 0.0185
+                3        8 0.0006
+
+------------------------------------------------------------------------------
+ High-severity prevalence by package registry
+------------------------------------------------------------------------------
+ primary_package        k    n prevalence
+            mcpb  72.0000  424     0.1698
+            none 582.0000 4825     0.1206
+             npm 470.0000 5872     0.0800
+             oci  58.0000  541     0.1072
+            pypi 417.0000 2584     0.1614
+
+------------------------------------------------------------------------------
+ High-severity prevalence by transport
+------------------------------------------------------------------------------
+ primary_transport        k    n prevalence
+              none 831.0000 8898     0.0934
+               sse 136.0000  308     0.4416
+   streamable-http 632.0000 5147     0.1228
+
+------------------------------------------------------------------------------
+ Categorical test — Any high-severity finding by primary_package
+------------------------------------------------------------------------------
+ Test          : Chi-square
+ n             : 14,246
+ Statistic     : chi2(4) = 141.35
+ p (raw)       : p < .001
+ p (BH-adj.)   : p < .001
+ Effect size   : Cramer's V = 0.098 (negligible)
+ 
+ READY-TO-PASTE (IEEE prose):
+ "Any high-severity finding by primary_package differed significantly (chi2(4) = 141.35, p < .001, Cramer's V = 0.10)."
+
+------------------------------------------------------------------------------
+ Categorical test — Any high-severity finding by primary_transport
+------------------------------------------------------------------------------
+ Test          : Chi-square
+ n             : 14,353
+ Statistic     : chi2(2) = 375.04
+ p (raw)       : p < .001
+ p (BH-adj.)   : p < .001
+ Effect size   : Cramer's V = 0.161 (small)
+ 
+ READY-TO-PASTE (IEEE prose):
+ "Any high-severity finding by primary_transport differed significantly (chi2(2) = 375.04, p < .001, Cramer's V = 0.16)."
+
+------------------------------------------------------------------------------
+ Statistical approach and assumptions
+------------------------------------------------------------------------------
+ Prevalence estimates use Wilson score intervals, which remain
+ accurate for rare classes where the normal approximation fails.
+ Counts of findings per server are heavy-tailed and zero-inflated,
+ so distribution comparisons use non-parametric rank tests
+ (Mann-Whitney, Kruskal-Wallis) with Cliff's delta and
+ epsilon-squared effect sizes. Popularity is analysed with rank
+ methods because star counts span several orders of magnitude.
+ Families of related tests are corrected with Benjamini-Hochberg
+ at FDR 0.05; adjusted p-values are reported alongside
+ raw ones. Bootstrap intervals use 5,000 resamples under seed 42.
+
+------------------------------------------------------------------------------
+ Detection caveat
+------------------------------------------------------------------------------
+ Findings are produced by pattern-based static analysis of server
+ metadata and source code. They are risk indicators, not confirmed
+ vulnerabilities: the scanner cannot establish reachability or
+ exploitability. Precision and recall against a manually labelled
+ sample are reported in RQ4, and results are presented in
+ aggregate without naming individual servers.
+
+==============================================================================
+ END OF REPORT
+==============================================================================

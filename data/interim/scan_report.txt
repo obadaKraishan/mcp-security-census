@@ -1,0 +1,31 @@
+============================================================================
+ SECURITY SCAN REPORT
+ Generated : 2026-08-16T14:09:03.019940+00:00
+ Snapshot  : 2026-08
+============================================================================
+ Repositories scanned    : 13,051
+ Files read              : 248,817
+ Test/demo files skipped : 10,004
+ Text analysed           : 1922.1 MB
+ Tool definitions found  : 69,027 (4,238 repos)
+ Findings emitted        : 4,719
+ Servers with >=1 finding: 2,183
+----------------------------------------------------------------------------
+ Servers affected per threat class:
+   TP_tool_poisoning                     0
+   AA_ambient_authority                127
+   TPT_token_passthrough                98
+   CI_command_injection                152
+   UE_unauthenticated_exposure       1,373
+   SEC_insecure_secrets                 99
+   DEP_unpinned_dependency             425
+   SSRF_unvalidated_fetch              191
+ Servers affected per severity:
+   high                              1,599
+   medium                              412
+   low                                 425
+----------------------------------------------------------------------------
+ Findings are pattern-based risk indicators, not confirmed
+ vulnerabilities. RQ4 reports precision and recall against a
+ manually labelled sample.
+============================================================================

@@ -1,0 +1,96 @@
+==============================================================================
+ RQ4 — Scanner Accuracy Against Manual Ground Truth
+==============================================================================
+ Research question : How accurately does the automated scanner flag risky servers?
+ Registry snapshot : 2026-08
+ Generated (UTC)   : 2026-10-24 14:17:31
+ Alpha             : 0.05   |   CI: 95%   |   p-adjustment: Benjamini-Hochberg
+ Bootstrap draws   : 5,000 (seed 42)
+==============================================================================
+
+
+------------------------------------------------------------------------------
+ Population and analysis sets
+------------------------------------------------------------------------------
+ rows labelled                                         414
+ flagged stratum                                       294
+ unflagged stratum                                     120
+ classes scored                                          7
+ Findings were sampled stratified by threat class, at most one
+ finding per server, and interleaved so that classes were judged
+ in mixed order. A second stratum of files with no finding was
+ inspected to estimate how much the scanner misses.
+
+------------------------------------------------------------------------------
+ Per-class accuracy against manual labels
+------------------------------------------------------------------------------
+ Class                           TP    FP    FN    Prec  Recall      F1
+ ----------------------------------------------------------------------
+ AA_ambient_authority            10    32     0   0.238   1.000   0.385
+ TPT_token_passthrough           33     9     2   0.786   0.943   0.857
+ CI_command_injection             7    35     0   0.167   1.000   0.286
+ UE_unauthenticated_exposure     30    12     0   0.714   1.000   0.833
+ SEC_insecure_secrets            16    26     0   0.381   1.000   0.552
+ DEP_unpinned_dependency         39     3     0   0.929   1.000   0.963
+ SSRF_unvalidated_fetch          30    12     0   0.714   1.000   0.833
+
+ AA_ambient_authority         precision 95% CI [0.135, 0.385]   recall 95% CI [0.722, 1.000]
+ TPT_token_passthrough        precision 95% CI [0.641, 0.883]   recall 95% CI [0.814, 0.984]
+ CI_command_injection         precision 95% CI [0.083, 0.306]   recall 95% CI [0.646, 1.000]
+ UE_unauthenticated_exposure  precision 95% CI [0.564, 0.828]   recall 95% CI [0.886, 1.000]
+ SEC_insecure_secrets         precision 95% CI [0.250, 0.532]   recall 95% CI [0.806, 1.000]
+ DEP_unpinned_dependency      precision 95% CI [0.810, 0.975]   recall 95% CI [0.910, 1.000]
+ SSRF_unvalidated_fetch       precision 95% CI [0.564, 0.828]   recall 95% CI [0.886, 1.000]
+
+------------------------------------------------------------------------------
+ Pooled precision
+------------------------------------------------------------------------------
+ Pooled precision across all labelled findings: 0.561, 95% CI [0.504, 0.617].
+
+------------------------------------------------------------------------------
+ Missed findings
+------------------------------------------------------------------------------
+ Of 120 files with no finding, 2 were judged to contain an issue: an estimated miss rate of 0.017, 95% CI [0.005, 0.059].
+ Population recall is not identifiable because the true number of
+ issues in unscanned code is unknown; this rate bounds how much
+ the reported prevalences understate the ecosystem.
+
+------------------------------------------------------------------------------
+ Precision-corrected prevalence (%)
+------------------------------------------------------------------------------
+                       class  k_flagged  n_scanned raw_prevalence precision corrected_prevalence corrected_low corrected_high
+        AA_ambient_authority        127      14353         0.8800    0.2381               0.2100        0.1200         0.3400
+       TPT_token_passthrough         98      14353         0.6800    0.7857               0.5400        0.4400         0.6000
+        CI_command_injection        152      14353         1.0600    0.1667               0.1800        0.0900         0.3200
+ UE_unauthenticated_exposure       1373      14353         9.5700    0.7143               6.8300        5.4000         7.9200
+        SEC_insecure_secrets         99      14353         0.6900    0.3810               0.2600        0.1700         0.3700
+     DEP_unpinned_dependency        425      14353         2.9600    0.9286               2.7500        2.4000         2.8900
+      SSRF_unvalidated_fetch        191      14353         1.3300    0.7143               0.9500        0.7500         1.1000
+ 
+ Corrected prevalence multiplies the observed rate by the
+ measured precision for that class, giving a conservative
+ estimate. Reported intervals combine the precision interval
+ with the observed count.
+
+------------------------------------------------------------------------------
+ Interpretation
+------------------------------------------------------------------------------
+ Precision was highest for DEP_unpinned_dependency (0.93) and lowest for CI_command_injection (0.17). Classes defined by a narrow
+ syntactic signature are detected more reliably than classes
+ that depend on how a value is later used, which is the expected
+ ordering for pattern-based analysis and sets the boundary for
+ what this method can claim.
+
+------------------------------------------------------------------------------
+ Detection caveat
+------------------------------------------------------------------------------
+ Findings are produced by pattern-based static analysis of server
+ metadata and source code. They are risk indicators, not confirmed
+ vulnerabilities: the scanner cannot establish reachability or
+ exploitability. Precision and recall against a manually labelled
+ sample are reported in RQ4, and results are presented in
+ aggregate without naming individual servers.
+
+==============================================================================
+ END OF REPORT
+==============================================================================

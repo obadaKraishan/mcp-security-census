@@ -1,0 +1,21 @@
+============================================================================================
+ THREAT CATALOGUE (detection classes used by the scanner)
+ Snapshot: 2026-08
+============================================================================================
+ Class                        Severity  Surface     Pat  Name
+--------------------------------------------------------------------------------------------
+ TP_tool_poisoning            high      tool          4  Tool poisoning (hidden instructions in tool metadata)
+ AA_ambient_authority         medium    code          4  Ambient authority (over-broad or unscoped permissions)
+ TPT_token_passthrough        high      code          5  Token passthrough / confused deputy
+ CI_command_injection         high      code          5  Command / code injection in handlers
+ UE_unauthenticated_exposure  high      code          4  Unauthenticated network exposure
+ SEC_insecure_secrets         medium    code          3  Insecure secret handling
+ DEP_unpinned_dependency      low       manifest      3  Unpinned or unverified dependency
+ SSRF_unvalidated_fetch       medium    code          3  Unvalidated outbound fetch (SSRF surface)
+--------------------------------------------------------------------------------------------
+ Surfaces: tool = recovered tool definitions; code = handler
+ source; manifest = package and build manifests.
+ Detection is pattern-based, so findings are risk indicators
+ rather than confirmed vulnerabilities; RQ4 reports precision
+ and recall against manual labels.
+============================================================================================

@@ -1,0 +1,26 @@
+{
+  "multi_version_servers": 8900,
+  "transitions_compared": 37160,
+  "drift_events": 16627,
+  "servers_with_drift": 4547,
+  "servers_with_silent_drift": 3612,
+  "servers_with_breaking_drift": 1395,
+  "servers_with_host_redirect": 370,
+  "by_drift_type": {
+    "silent_semantic": 5797,
+    "additive": 5699,
+    "breaking": 5131
+  },
+  "by_change": {
+    "description_changed": 4909,
+    "package_added": 4524,
+    "package_removed": 4321,
+    "remote_added": 1175,
+    "remote_removed": 810,
+    "remote_host_redirected": 441,
+    "runtime_hint_changed": 343,
+    "transport_changed": 90,
+    "package_registry_changed": 14
+  },
+  "generated_at_utc": "2026-08-16T14:09:19.619085+00:00"
+}

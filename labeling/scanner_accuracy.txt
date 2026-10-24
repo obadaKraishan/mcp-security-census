@@ -1,0 +1,65 @@
+==============================================================================
+ RQ4 — SCANNER ACCURACY AGAINST MANUAL LABELS
+ Snapshot : 2026-08
+ Generated: 2026-10-24T14:17:19.913993+00:00
+==============================================================================
+
+ SAMPLE
+------------------------------------------------------------------------------
+ Rows labelled                 : 414
+   flagged stratum (precision) : 294
+   unflagged stratum (recall)  : 120
+ Sampling                      : stratified by threat class, one
+                                 finding per server, seed 42
+
+ POOLED PRECISION
+------------------------------------------------------------------------------
+ True findings                 : 165
+ False positives               : 129
+ Precision                     : 0.561, 95% CI [0.504, 0.617]
+
+ PER-CLASS ACCURACY
+------------------------------------------------------------------------------
+ Class                           n   TP   FP    Prec             95% CI
+ AA_ambient_authority           42   10   32   0.238 [0.135, 0.385]
+ TPT_token_passthrough          42   33    9   0.786 [0.641, 0.883]
+ CI_command_injection           42    7   35   0.167 [0.083, 0.306]
+ UE_unauthenticated_exposure    42   30   12   0.714 [0.564, 0.828]
+ SEC_insecure_secrets           42   16   26   0.381 [0.250, 0.532]
+ DEP_unpinned_dependency        42   39    3   0.929 [0.810, 0.975]
+ SSRF_unvalidated_fetch         42   30   12   0.714 [0.564, 0.828]
+
+ MISSED FINDINGS (recall stratum)
+------------------------------------------------------------------------------
+ Unflagged files inspected     : 120
+ Judged to contain an issue    : 2
+ Miss rate                     : 0.017, 95% CI [0.005, 0.059]
+
+ Recall cannot be computed as a population figure because the true
+ number of issues in unscanned code is unknown. The miss rate above
+ is the estimated share of unflagged files that a rater judged to
+ contain an issue, and bounds how much the scanner underestimates.
+
+ PRECISION-CORRECTED PREVALENCE
+------------------------------------------------------------------------------
+ Class                             raw  corrected               95% CI
+ AA_ambient_authority            0.88%      0.21%     [ 0.12,  0.34]
+ TPT_token_passthrough           0.68%      0.54%     [ 0.44,  0.60]
+ CI_command_injection            1.06%      0.18%     [ 0.09,  0.32]
+ UE_unauthenticated_exposure     9.57%      6.83%     [ 5.40,  7.92]
+ SEC_insecure_secrets            0.69%      0.26%     [ 0.17,  0.37]
+ DEP_unpinned_dependency         2.96%      2.75%     [ 2.40,  2.89]
+ SSRF_unvalidated_fetch          1.33%      0.95%     [ 0.75,  1.10]
+
+ Corrected prevalence multiplies the observed rate by measured
+ precision, giving a conservative estimate of true prevalence.
+
+ READY-TO-PASTE (IEEE prose)
+------------------------------------------------------------------------------
+ "Across 294 manually labelled findings, the scanner
+  achieved a pooled precision of 0.56 (95% CI [0.50, 0.62]). Precision varied by class
+  (Table X). Among 120 sampled files with no finding, 2 were
+  judged to contain an issue the scanner missed, an estimated miss
+  rate of 0.02 (95% CI [0.00, 0.06])."
+
+==============================================================================

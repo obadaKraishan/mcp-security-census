@@ -1,0 +1,33 @@
+{
+  "snapshot_label": "2026-08",
+  "harvested_at_utc": "2026-08-14T17:51:27.427636+00:00",
+  "endpoint": "https://registry.modelcontextprotocol.io/v0/servers",
+  "crawl_complete": true,
+  "pages": 727,
+  "version_records": 72606,
+  "unique_servers": 21644,
+  "latest_version_records": 21643,
+  "with_repo_url": 62720,
+  "with_package": 53073,
+  "with_remote": 26108,
+  "status_counts": {
+    "active": 71850,
+    "deprecated": 756
+  },
+  "package_type_counts": {
+    "npm": 32517,
+    "pypi": 15123,
+    "oci": 5723,
+    "mcpb": 2645,
+    "nuget": 696,
+    "cargo": 85
+  },
+  "remote_type_counts": {
+    "streamable-http": 24781,
+    "sse": 2024
+  },
+  "published_min": "2025-09-08 23:47:09.452138+00:00",
+  "published_max": "2026-08-14 17:49:52.105059+00:00",
+  "elapsed_seconds": 550.8,
+  "file": "/Volumes/Kraishan/Desktop/2026/IEEE-BigData-2026/paper-2/mcp-security-census/data/raw/registry_servers.parquet"
+}

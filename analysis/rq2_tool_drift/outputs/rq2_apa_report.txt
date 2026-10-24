@@ -1,0 +1,120 @@
+==============================================================================
+ RQ2 — Silent Tool-Definition Drift Across Versions
+==============================================================================
+ Research question : How often do tool definitions change silently across published versions?
+ Registry snapshot : 2026-08
+ Generated (UTC)   : 2026-10-24 14:17:24
+ Alpha             : 0.05   |   CI: 95%   |   p-adjustment: Benjamini-Hochberg
+ Bootstrap draws   : 5,000 (seed 42)
+==============================================================================
+
+
+------------------------------------------------------------------------------
+ Population and analysis sets
+------------------------------------------------------------------------------
+ servers in registry                                21,643
+ multi version servers                               8,900
+ drift events                                       16,627
+ servers with any drift                              4,547
+ Drift is measured on the fields the registry versions:
+ description text, package identifiers, and remote endpoints.
+ The registry does not version tool definitions, so a client
+ cannot detect a change in tool behaviour from the registry
+ alone; that gap is reported as a structural finding.
+
+------------------------------------------------------------------------------
+ Drift prevalence (multi-version servers)
+------------------------------------------------------------------------------
+ Class / group                        k        n     prev             95% CI
+ ---------------------------------------------------------------------------
+ silent_semantic                  3,612    8,900   40.58%     [39.57, 41.61]
+ breaking                         1,395    8,900   15.67%     [14.93, 16.44]
+ additive                         1,865    8,900   20.96%     [20.12, 21.81]
+ any drift                        4,547    8,900   51.09%     [50.05, 52.13]
+
+------------------------------------------------------------------------------
+ Change kinds (share of multi-version servers)
+------------------------------------------------------------------------------
+ Class / group                        k        n     prev             95% CI
+ ---------------------------------------------------------------------------
+ description_changed              3,242    8,900   36.43%     [35.43, 37.43]
+ package_added                      991    8,900   11.13%     [10.50, 11.81]
+ remote_added                       924    8,900   10.38%     [ 9.77, 11.03]
+ package_removed                    840    8,900    9.44%     [ 8.85, 10.06]
+ remote_removed                     586    8,900    6.58%     [ 6.09,  7.12]
+ remote_host_redirected             370    8,900    4.16%     [ 3.76,  4.59]
+ runtime_hint_changed               311    8,900    3.49%     [ 3.13,  3.90]
+ transport_changed                   84    8,900    0.94%     [ 0.76,  1.17]
+ package_registry_changed            13    8,900    0.15%     [ 0.09,  0.25]
+
+------------------------------------------------------------------------------
+ Endpoint redirection (rug-pull analogue)
+------------------------------------------------------------------------------
+ Servers that kept their registry identity while moving their
+ remote endpoint to a different host: 370 of 8,900 (4.16%, 95% CI [3.76%, 4.59%]).
+ Events observed: 441.
+ An already-installed client continues to resolve the same server
+ name while its traffic reaches a different origin, and the
+ protocol provides no notification of the change.
+
+------------------------------------------------------------------------------
+ Descriptive statistics — Days between versions when a change occurred
+------------------------------------------------------------------------------
+ Group                        n       Mean         SD    Median       Q1       Q3
+ --------------------------------------------------------------------------------
+ days to first change     4,547     10.269     26.960     0.000    0.000    6.500
+
+------------------------------------------------------------------------------
+ Categorical test — Silent drift vs has_high_severity
+------------------------------------------------------------------------------
+ Test          : Chi-square
+ n             : 6,699
+ Statistic     : chi2(1) = 231.98
+ p (raw)       : p < .001
+ p (BH-adj.)   : p < .001
+ Effect size   : Cramer's V = 0.186 (small)
+ Odds ratio    : OR = 2.960, 95% CI [2.564, 3.417]
+ 
+ READY-TO-PASTE (IEEE prose):
+ "Silent drift vs has_high_severity differed significantly (chi2(1) = 231.98, p < .001, Cramer's V = 0.19, OR = 2.96 [2.56, 3.42])."
+
+------------------------------------------------------------------------------
+ Categorical test — Silent drift vs any_finding
+------------------------------------------------------------------------------
+ Test          : Chi-square
+ n             : 6,699
+ Statistic     : chi2(1) = 177.51
+ p (raw)       : p < .001
+ p (BH-adj.)   : p < .001
+ Effect size   : Cramer's V = 0.162 (small)
+ Odds ratio    : OR = 2.338, 95% CI [2.060, 2.654]
+ 
+ READY-TO-PASTE (IEEE prose):
+ "Silent drift vs any_finding differed significantly (chi2(1) = 177.51, p < .001, Cramer's V = 0.16, OR = 2.34 [2.06, 2.65])."
+
+------------------------------------------------------------------------------
+ Robustness to bulk republishers
+------------------------------------------------------------------------------
+ A small number of servers publish many versions per day. The
+ analysis was repeated with a cap of 20 transitions per server;
+ the endpoint-redirection estimate moved by less than 0.05
+ percentage points, so the finding is not driven by high-volume
+ publishers.
+
+------------------------------------------------------------------------------
+ Statistical approach and assumptions
+------------------------------------------------------------------------------
+ Prevalence estimates use Wilson score intervals, which remain
+ accurate for rare classes where the normal approximation fails.
+ Counts of findings per server are heavy-tailed and zero-inflated,
+ so distribution comparisons use non-parametric rank tests
+ (Mann-Whitney, Kruskal-Wallis) with Cliff's delta and
+ epsilon-squared effect sizes. Popularity is analysed with rank
+ methods because star counts span several orders of magnitude.
+ Families of related tests are corrected with Benjamini-Hochberg
+ at FDR 0.05; adjusted p-values are reported alongside
+ raw ones. Bootstrap intervals use 5,000 resamples under seed 42.
+
+==============================================================================
+ END OF REPORT
+==============================================================================

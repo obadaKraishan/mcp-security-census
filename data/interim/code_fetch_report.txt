@@ -1,0 +1,23 @@
+============================================================================
+ SERVER CODE FETCH REPORT
+ Generated : 2026-08-15T08:13:12.685421+00:00
+============================================================================
+ Repos attempted         : 15,545
+ Repos with files        : 13,051
+ Files fetched           : 248,817
+ Bytes fetched           : 1939.2 MB
+ Median files per repo   : 14
+ Elapsed                 : 498.9 min
+----------------------------------------------------------------------------
+ Outcome by repository:
+   ok                       13,051
+   not_found                 2,256
+   no_files                    220
+   tree_unavailable             16
+   dmca_blocked                  1
+   forbidden                     1
+----------------------------------------------------------------------------
+ NOTE: not_found and forbidden repositories are registry
+ entries whose source is private or removed. They are reported
+ as attrition, not imputed.
+============================================================================

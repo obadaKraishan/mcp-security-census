@@ -1,0 +1,22 @@
+============================================================================
+ MASTER TABLE REPORT
+ Generated : 2026-08-16T14:09:25.568907+00:00
+ Snapshot  : 2026-08
+============================================================================
+ Rows (servers)          : 21,643
+ Features                : 68
+ Scanned (has code)      : 14,353
+----------------------------------------------------------------------------
+ Threat class                       servers   prevalence
+ TP_tool_poisoning                        0       0.00%
+ AA_ambient_authority                   127       0.88%
+ TPT_token_passthrough                   98       0.68%
+ CI_command_injection                   152       1.06%
+ UE_unauthenticated_exposure          1,373       9.57%
+ SEC_insecure_secrets                    99       0.69%
+ DEP_unpinned_dependency                425       2.96%
+ SSRF_unvalidated_fetch                 191       1.33%
+----------------------------------------------------------------------------
+ Any high-severity class : 1,599 (11.14%)
+ Silent drift (multi-ver): 3,612 (40.58% of 8,900)
+============================================================================

@@ -1,0 +1,17 @@
+{
+  "snapshot_label": "2026-08",
+  "generated_at_utc": "2026-08-15T08:13:12.685421+00:00",
+  "repos_attempted": 15545,
+  "repos_with_files": 13051,
+  "files_fetched": 248817,
+  "bytes_fetched": 1939231178,
+  "status_counts": {
+    "dmca_blocked": 1,
+    "forbidden": 1,
+    "no_files": 220,
+    "not_found": 2256,
+    "ok": 13051,
+    "tree_unavailable": 16
+  },
+  "elapsed_seconds": 29935.5
+}

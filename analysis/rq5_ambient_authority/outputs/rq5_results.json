@@ -1,0 +1,86 @@
+{
+  "n_scanned": 14353,
+  "prevalence": [
+    {
+      "group": "AA_ambient_authority",
+      "k": 127,
+      "n": 14353,
+      "prevalence": 0.008848324392113147,
+      "ci_low": 0.007442254530288484,
+      "ci_high": 0.010517229076203458
+    },
+    {
+      "group": "TPT_token_passthrough",
+      "k": 98,
+      "n": 14353,
+      "prevalence": 0.006827840869504633,
+      "ci_low": 0.005606335285869671,
+      "ci_high": 0.008313262516606138
+    },
+    {
+      "group": "both classes",
+      "k": 0,
+      "n": 14353,
+      "prevalence": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0002675699130419785
+    },
+    {
+      "group": "either class",
+      "k": 225,
+      "n": 14353,
+      "prevalence": 0.015676165261617782,
+      "ci_low": 0.01376970303195285,
+      "ci_high": 0.017841808463972923
+    }
+  ],
+  "tests": [
+    {
+      "test": "Chi-square",
+      "chi2": 18.184752719784107,
+      "df": 2,
+      "p": 0.00011252036169055882,
+      "n": 14353,
+      "cramers_v": 0.03358110268327388,
+      "v_magnitude": "negligible",
+      "stratum": "primary_transport",
+      "p_adj": 0.00016878054253583824
+    },
+    {
+      "test": "Chi-square",
+      "chi2": 15.276412313717552,
+      "df": 4,
+      "p": 0.00416095270071889,
+      "n": 14246,
+      "cramers_v": 0.028135124448444425,
+      "v_magnitude": "negligible",
+      "stratum": "primary_package",
+      "p_adj": 0.00416095270071889
+    },
+    {
+      "test": "Chi-square",
+      "chi2": 15.009818671301177,
+      "df": 1,
+      "p": 0.00010695325672112768,
+      "n": 14353,
+      "cramers_v": 0.03124344865844733,
+      "v_magnitude": "negligible",
+      "odds_ratio": 1.6896623266216975,
+      "or_ci_low": 1.298193719577253,
+      "or_ci_high": 2.199177776745325,
+      "group_a": "remote-hosted",
+      "group_b": "locally installed",
+      "prev_remote-hosted": 0.02089825847846013,
+      "prev_locally installed": 0.012474713418745786,
+      "a_ci": [
+        0.017425853215717414,
+        0.025044964185669476
+      ],
+      "b_ci": [
+        0.010369847066314138,
+        0.015000348512367105
+      ],
+      "p_adj": 0.00016878054253583824
+    }
+  ]
+}

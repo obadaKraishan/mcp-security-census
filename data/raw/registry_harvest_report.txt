@@ -1,0 +1,31 @@
+============================================================================
+ MCP REGISTRY HARVEST REPORT
+ Generated : 2026-08-14T17:51:27.427636+00:00
+ Snapshot  : 2026-08
+ Complete  : yes
+============================================================================
+ Pages crawled          : 727
+ Version records        : 72,606
+ Unique servers         : 21,644   <- study population
+ Latest-version records : 21,643
+----------------------------------------------------------------------------
+ With repository URL    : 62,720 (86.4%)   <- eligible for code analysis
+ With a package         : 53,073 (73.1%)
+ With a remote endpoint : 26,108 (36.0%)
+ Published range        : 2025-09-08 .. 2026-08-14
+ Elapsed                : 9.2 min
+----------------------------------------------------------------------------
+ Status counts:
+   active                     71,850
+   deprecated                    756
+ Package types:
+   npm                        32,517
+   pypi                       15,123
+   oci                         5,723
+   mcpb                        2,645
+   nuget                         696
+   cargo                          85
+ Remote transport types:
+   streamable-http            24,781
+   sse                         2,024
+============================================================================

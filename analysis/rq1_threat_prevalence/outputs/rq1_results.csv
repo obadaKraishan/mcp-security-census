@@ -1,0 +1,9 @@
+group,k,n,prevalence,ci_low,ci_high,severity,name
+UE_unauthenticated_exposure,1373,14353,0.09565944401867206,0.0909552707404918,0.10057999603165886,high,Unauthenticated network exposure
+DEP_unpinned_dependency,425,14353,0.029610534383055807,0.026960765276495744,0.032512027626437845,low,Unpinned or unverified dependency
+SSRF_unvalidated_fetch,191,14353,0.013307322510973316,0.011558660209458534,0.01531643344727591,medium,Unvalidated outbound fetch (SSRF surface)
+CI_command_injection,152,14353,0.0105901205322929,0.009041566681938057,0.012400577100429864,high,Command / code injection in handlers
+AA_ambient_authority,127,14353,0.008848324392113147,0.007442254530288484,0.010517229076203458,medium,Ambient authority (over-broad or unscoped permissions)
+SEC_insecure_secrets,99,14353,0.006897512715111824,0.005669214971412653,0.008389689238098196,medium,Insecure secret handling
+TPT_token_passthrough,98,14353,0.006827840869504633,0.005606335285869671,0.008313262516606138,high,Token passthrough / confused deputy
+TP_tool_poisoning,0,14353,0.0,0.0,0.0002675699130419785,high,Tool poisoning (hidden instructions in tool metadata)

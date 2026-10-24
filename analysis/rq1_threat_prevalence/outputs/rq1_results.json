@@ -1,0 +1,165 @@
+{
+  "n_scanned": 14353,
+  "prevalence": [
+    {
+      "group": "UE_unauthenticated_exposure",
+      "k": 1373,
+      "n": 14353,
+      "prevalence": 0.09565944401867206,
+      "ci_low": 0.0909552707404918,
+      "ci_high": 0.10057999603165886,
+      "severity": "high",
+      "name": "Unauthenticated network exposure"
+    },
+    {
+      "group": "DEP_unpinned_dependency",
+      "k": 425,
+      "n": 14353,
+      "prevalence": 0.029610534383055807,
+      "ci_low": 0.026960765276495744,
+      "ci_high": 0.032512027626437845,
+      "severity": "low",
+      "name": "Unpinned or unverified dependency"
+    },
+    {
+      "group": "SSRF_unvalidated_fetch",
+      "k": 191,
+      "n": 14353,
+      "prevalence": 0.013307322510973316,
+      "ci_low": 0.011558660209458534,
+      "ci_high": 0.01531643344727591,
+      "severity": "medium",
+      "name": "Unvalidated outbound fetch (SSRF surface)"
+    },
+    {
+      "group": "CI_command_injection",
+      "k": 152,
+      "n": 14353,
+      "prevalence": 0.0105901205322929,
+      "ci_low": 0.009041566681938057,
+      "ci_high": 0.012400577100429864,
+      "severity": "high",
+      "name": "Command / code injection in handlers"
+    },
+    {
+      "group": "AA_ambient_authority",
+      "k": 127,
+      "n": 14353,
+      "prevalence": 0.008848324392113147,
+      "ci_low": 0.007442254530288484,
+      "ci_high": 0.010517229076203458,
+      "severity": "medium",
+      "name": "Ambient authority (over-broad or unscoped permissions)"
+    },
+    {
+      "group": "SEC_insecure_secrets",
+      "k": 99,
+      "n": 14353,
+      "prevalence": 0.006897512715111824,
+      "ci_low": 0.005669214971412653,
+      "ci_high": 0.008389689238098196,
+      "severity": "medium",
+      "name": "Insecure secret handling"
+    },
+    {
+      "group": "TPT_token_passthrough",
+      "k": 98,
+      "n": 14353,
+      "prevalence": 0.006827840869504633,
+      "ci_low": 0.005606335285869671,
+      "ci_high": 0.008313262516606138,
+      "severity": "high",
+      "name": "Token passthrough / confused deputy"
+    },
+    {
+      "group": "TP_tool_poisoning",
+      "k": 0,
+      "n": 14353,
+      "prevalence": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0002675699130419785,
+      "severity": "high",
+      "name": "Tool poisoning (hidden instructions in tool metadata)"
+    }
+  ],
+  "severity_rollup": [
+    {
+      "group": "any high-severity class",
+      "k": 1599,
+      "n": 14353,
+      "prevalence": 0.11140528112589702,
+      "ci_low": 0.10636157191207839,
+      "ci_high": 0.1166569428499911
+    },
+    {
+      "group": "any medium-severity class",
+      "k": 412,
+      "n": 14353,
+      "prevalence": 0.028704800390162336,
+      "ci_low": 0.02609668190458103,
+      "ci_high": 0.031565127706897046
+    },
+    {
+      "group": "any low-severity class",
+      "k": 425,
+      "n": 14353,
+      "prevalence": 0.029610534383055807,
+      "ci_low": 0.026960765276495744,
+      "ci_high": 0.032512027626437845
+    },
+    {
+      "group": "any class",
+      "k": 2183,
+      "n": 14353,
+      "prevalence": 0.15209363896049607,
+      "ci_low": 0.14631179904109684,
+      "ci_high": 0.15806165742943548
+    }
+  ],
+  "co_occurrence": [
+    {
+      "classes_present": 0,
+      "servers": 12170,
+      "share": 0.8479063610395039
+    },
+    {
+      "classes_present": 1,
+      "servers": 1909,
+      "share": 0.13300355326412597
+    },
+    {
+      "classes_present": 2,
+      "servers": 266,
+      "share": 0.018532710931512576
+    },
+    {
+      "classes_present": 3,
+      "servers": 8,
+      "share": 0.0005573747648575211
+    }
+  ],
+  "stratum_tests": [
+    {
+      "test": "Chi-square",
+      "chi2": 141.3545520517099,
+      "df": 4,
+      "p": 1.4475398163228807e-29,
+      "n": 14246,
+      "cramers_v": 0.09819510950982967,
+      "v_magnitude": "negligible",
+      "stratum": "primary_package",
+      "levels": "npm, none, pypi, oci, mcpb"
+    },
+    {
+      "test": "Chi-square",
+      "chi2": 375.03967019932554,
+      "df": 2,
+      "p": 3.640578238812906e-82,
+      "n": 14353,
+      "cramers_v": 0.16122085363459532,
+      "v_magnitude": "small",
+      "stratum": "primary_transport",
+      "levels": "none, streamable-http, sse"
+    }
+  ]
+}

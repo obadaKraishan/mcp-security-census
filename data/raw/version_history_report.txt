@@ -1,0 +1,23 @@
+============================================================================
+ VERSION HISTORY REPORT
+ Generated : 2026-08-15T20:15:28.742315+00:00
+============================================================================
+ Servers queried             : 21,644
+ Servers with history        : 21,644
+ Total version records       : 72,650
+ Servers with >1 version     : 8,900 (41.1%)   <- RQ2 analysis set
+ Max versions (one server)   : 1,159
+ Median versions per server  : 1.0
+----------------------------------------------------------------------------
+ Per-version fields captured for drift analysis:
+   records with packages     : 53,113 (73.1%)
+   records with remotes      : 26,116 (35.9%)
+   records with tool defs    : 0 (0.0%)
+ Fetch failures              : 0
+ Elapsed                     : 1.9 min
+----------------------------------------------------------------------------
+ NOTE: the registry does not embed tool definitions in server
+ records. Drift is therefore measured on what it does version:
+ description text, package identifiers and versions, and remote
+ endpoint URLs. That absence is itself reported as a finding.
+============================================================================

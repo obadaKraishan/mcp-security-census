@@ -1,0 +1,111 @@
+==============================================================================
+ RQ5 — Ambient Authority and Token Passthrough
+==============================================================================
+ Research question : What share of servers expose ambient authority or pass tokens through?
+ Registry snapshot : 2026-08
+ Generated (UTC)   : 2026-10-24 14:17:33
+ Alpha             : 0.05   |   CI: 95%   |   p-adjustment: Benjamini-Hochberg
+ Bootstrap draws   : 5,000 (seed 42)
+==============================================================================
+
+
+------------------------------------------------------------------------------
+ Population and analysis sets
+------------------------------------------------------------------------------
+ servers scanned                                    14,353
+ servers with remote endpoint                        5,455
+ servers with package                                9,528
+ Ambient authority and token passthrough both concern how a
+ server handles authority it did not create: the first grants
+ itself broad access, the second forwards a caller's credential
+ onward. They are analysed together because both break the
+ expectation that a tool acts only within a scope the user set.
+
+------------------------------------------------------------------------------
+ Delegation-risk prevalence (scan population)
+------------------------------------------------------------------------------
+ Class / group                        k        n     prev             95% CI
+ ---------------------------------------------------------------------------
+ AA_ambient_authority               127   14,353    0.88%     [ 0.74,  1.05]
+ TPT_token_passthrough               98   14,353    0.68%     [ 0.56,  0.83]
+ both classes                         0   14,353    0.00%     [ 0.00,  0.03]
+ either class                       225   14,353    1.57%     [ 1.38,  1.78]
+
+------------------------------------------------------------------------------
+ Delegation risk by transport
+------------------------------------------------------------------------------
+ primary_transport   k    n prevalence
+              none 111 8898     0.0125
+               sse   3  308     0.0097
+   streamable-http 111 5147     0.0216
+
+------------------------------------------------------------------------------
+ Delegation risk by package registry
+------------------------------------------------------------------------------
+ primary_package   k    n prevalence
+            mcpb   5  424     0.0118
+            none 103 4825     0.0213
+             npm  81 5872     0.0138
+             oci   7  541     0.0129
+            pypi  29 2584     0.0112
+
+------------------------------------------------------------------------------
+ Categorical test — Delegation risk, remote-hosted vs local
+------------------------------------------------------------------------------
+ Test          : Chi-square
+ n             : 14,353
+ Statistic     : chi2(1) = 15.01
+ p (raw)       : p < .001
+ Effect size   : Cramer's V = 0.031 (negligible)
+ Odds ratio    : OR = 1.690, 95% CI [1.298, 2.199]
+ 
+ READY-TO-PASTE (IEEE prose):
+ "Delegation risk, remote-hosted vs local differed significantly (chi2(1) = 15.01, p < .001, Cramer's V = 0.03, OR = 1.69 [1.30, 2.20])."
+ 
+ A remote-hosted server holds any forwarded credential on
+ infrastructure the user does not control, so the same
+ pattern carries more consequence there than in a server the
+ user runs locally.
+
+------------------------------------------------------------------------------
+ Representative evidence
+------------------------------------------------------------------------------
+ AA_ambient_authority:
+    scope = 'all',
+    poems = search_poems(theme, scope="All", dynasty=dynasty, ty...
+    (scope='all'). Returns line matches with paths and line numb...
+ TPT_token_passthrough:
+    Authorization: `Bearer $${input.remoteTokenEnv}`
+    Authorization: `Bearer ${ctx.google_ads.accessToken}`,
+    const FORWARD_HEADERS = [
+ 
+ Server identities are withheld; findings are reported in
+ aggregate.
+
+------------------------------------------------------------------------------
+ Statistical approach and assumptions
+------------------------------------------------------------------------------
+ Prevalence estimates use Wilson score intervals, which remain
+ accurate for rare classes where the normal approximation fails.
+ Counts of findings per server are heavy-tailed and zero-inflated,
+ so distribution comparisons use non-parametric rank tests
+ (Mann-Whitney, Kruskal-Wallis) with Cliff's delta and
+ epsilon-squared effect sizes. Popularity is analysed with rank
+ methods because star counts span several orders of magnitude.
+ Families of related tests are corrected with Benjamini-Hochberg
+ at FDR 0.05; adjusted p-values are reported alongside
+ raw ones. Bootstrap intervals use 5,000 resamples under seed 42.
+
+------------------------------------------------------------------------------
+ Detection caveat
+------------------------------------------------------------------------------
+ Findings are produced by pattern-based static analysis of server
+ metadata and source code. They are risk indicators, not confirmed
+ vulnerabilities: the scanner cannot establish reachability or
+ exploitability. Precision and recall against a manually labelled
+ sample are reported in RQ4, and results are presented in
+ aggregate without naming individual servers.
+
+==============================================================================
+ END OF REPORT
+==============================================================================

@@ -1,0 +1,15 @@
+{
+  "snapshot_label": "2026-08",
+  "generated_at_utc": "2026-08-15T20:15:28.742315+00:00",
+  "servers_queried": 21644,
+  "servers_with_history": 21644,
+  "version_records": 72650,
+  "servers_multi_version": 8900,
+  "max_versions_single_server": 1159,
+  "median_versions": 1.0,
+  "records_with_packages": 53113,
+  "records_with_remotes": 26116,
+  "records_with_tools": 0,
+  "fetch_failures": 0,
+  "elapsed_seconds": 112.8
+}

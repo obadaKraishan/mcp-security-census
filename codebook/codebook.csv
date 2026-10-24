@@ -1,0 +1,69 @@
+variable,dtype,definition,unit,source_stage,non_null,coverage,example
+name,str,Canonical server name in the MCP registry,-,registry,21643,1.0,app.getdialer/dialer
+version,str,Latest published version string,-,registry,21643,1.0,1.0.1
+title,str,Human-readable server title,-,registry,11494,0.5311,Unified Offer Protocol MCP Server
+description,str,Server description text,-,registry,21643,1.0,An MCP server that provides lets you make ou
+repo_url,str,Declared source repository URL,-,registry,17213,0.7953,https://github.com/pulsemcp/mcp-servers
+owner,str,GitHub owner parsed from repo_url,-,clean_and_merge,17190,0.7943,pulsemcp
+repo,str,GitHub repository name parsed from repo_url,-,clean_and_merge,17190,0.7943,mcp-servers
+has_repo,bool,1 if the record declares a repository URL,0/1,clean_and_merge,21643,1.0,False
+status,str,Registry status (active/deprecated),-,registry,21643,1.0,active
+is_deprecated,int64,1 if registry status is deprecated,0/1,clean_and_merge,21643,1.0,0
+published_at,str,Timestamp of the latest version,UTC,registry,21643,1.0,2025-09-09T00:16:49.107843Z
+updated_at,str,Timestamp of the last registry update,UTC,registry,21643,1.0,2025-09-09T00:16:49.107843Z
+n_versions,int64,Published versions for this server,count,version history,21643,1.0,2
+first_published,str,Timestamp of the earliest version,UTC,version history,21643,1.0,2025-09-08T23:47:09.452138Z
+last_published,str,Timestamp of the most recent version,UTC,version history,21643,1.0,2025-09-09T00:16:49.107843Z
+n_packages,int64,Package entries in the latest version,count,registry,21643,1.0,0
+package_types,str,Package registries used (semicolon separated),-,registry,11337,0.5238,npm
+primary_package,str,"First declared package registry, else 'none'",-,clean_and_merge,21643,1.0,none
+n_remotes,int64,Remote endpoints declared,count,registry,21643,1.0,2
+remote_types,str,Transport types declared,-,registry,11083,0.5121,sse;streamable-http
+primary_transport,str,"First declared transport, else 'none'",-,clean_and_merge,21643,1.0,sse
+has_remote,int64,1 if any remote endpoint is declared,0/1,clean_and_merge,21643,1.0,1
+code_status,str,Outcome of source fetch (ok/not_found/forbidden/...),-,code fetch,17190,0.7943,ok
+has_code,bool,1 if source files were fetched and scanned,0/1,clean_and_merge,21643,1.0,False
+n_files,float64,Source files fetched for the repository,count,code fetch,14353,0.6632,40.0
+bytes_fetched,float64,Bytes of source fetched,bytes,code fetch,14353,0.6632,251132.0
+stars,float64,GitHub stargazer count,count,GitHub API,14640,0.6764,76.0
+log_stars,float64,log(1 + stars); stars span several orders of magnitude,log count,clean_and_merge,14640,0.6764,4.343805421853684
+language,str,Primary repository language reported by GitHub,-,GitHub API,13285,0.6138,TypeScript
+archived,object,1 if the repository is archived,0/1,GitHub API,14640,0.6764,False
+open_issues,float64,Open issues on the repository,count,GitHub API,14640,0.6764,39.0
+license,str,"SPDX license identifier, blank if none",-,GitHub API,12534,0.5791,MIT
+days_since_push,float64,Days since the last push to the repository,days,feature engineering,14640,0.6764,20.0
+repo_age_days,float64,Days since repository creation,days,feature engineering,14640,0.6764,460.0
+n_AA_ambient_authority,float64,Findings for Ambient authority (over-broad or unscoped permissions),count,scanner,14353,0.6632,0.0
+n_CI_command_injection,float64,Findings for Command / code injection in handlers,count,scanner,14353,0.6632,0.0
+n_DEP_unpinned_dependency,float64,Findings for Unpinned or unverified dependency,count,scanner,14353,0.6632,0.0
+n_SEC_insecure_secrets,float64,Findings for Insecure secret handling,count,scanner,14353,0.6632,0.0
+n_SSRF_unvalidated_fetch,float64,Findings for Unvalidated outbound fetch (SSRF surface),count,scanner,14353,0.6632,0.0
+n_TPT_token_passthrough,float64,Findings for Token passthrough / confused deputy,count,scanner,14353,0.6632,0.0
+n_UE_unauthenticated_exposure,float64,Findings for Unauthenticated network exposure,count,scanner,14353,0.6632,0.0
+n_TP_tool_poisoning,float64,Findings for Tool poisoning (hidden instructions in tool metadata),count,scanner,14353,0.6632,0.0
+has_TP_tool_poisoning,int64,1 if any Tool poisoning (hidden instructions in tool metadata) finding,0/1,feature engineering,21643,1.0,0
+has_AA_ambient_authority,int64,1 if any Ambient authority (over-broad or unscoped permissions) finding,0/1,feature engineering,21643,1.0,0
+has_TPT_token_passthrough,int64,1 if any Token passthrough / confused deputy finding,0/1,feature engineering,21643,1.0,0
+has_CI_command_injection,int64,1 if any Command / code injection in handlers finding,0/1,feature engineering,21643,1.0,0
+has_UE_unauthenticated_exposure,int64,1 if any Unauthenticated network exposure finding,0/1,feature engineering,21643,1.0,0
+has_SEC_insecure_secrets,int64,1 if any Insecure secret handling finding,0/1,feature engineering,21643,1.0,0
+has_DEP_unpinned_dependency,int64,1 if any Unpinned or unverified dependency finding,0/1,feature engineering,21643,1.0,0
+has_SSRF_unvalidated_fetch,int64,1 if any Unvalidated outbound fetch (SSRF surface) finding,0/1,feature engineering,21643,1.0,0
+n_findings_total,float64,Findings across all threat classes,count,scanner,14353,0.6632,0.0
+n_classes_hit,float64,Distinct threat classes with >=1 finding,count,feature engineering,14353,0.6632,0.0
+severity_score,float64,Sum of severity weights over classes present,weighted,feature engineering,14353,0.6632,0.0
+has_high_severity,float64,1 if any high-severity class is present,0/1,feature engineering,14353,0.6632,0.0
+any_finding,int64,1 if any finding was produced,0/1,feature engineering,21643,1.0,0
+n_tools_found,float64,Tool definitions recovered from source,count,scanner,21643,1.0,0.0
+mean_tool_desc_len,float64,Mean characters per tool description,chars,feature engineering,4903,0.2265,378.0
+n_drift_events,float64,Version-to-version change events detected,count,drift detection,8900,0.4112,1.0
+n_silent_drift,float64,Events where identifiers held but meaning or destination changed,count,drift detection,8900,0.4112,1.0
+n_breaking_drift,float64,Events withdrawing a package or endpoint,count,drift detection,8900,0.4112,0.0
+median_days_between,float64,Median days between changed versions,days,feature engineering,4547,0.2101,0.0
+has_silent_drift,float64,1 if any silent-semantic drift event occurred,0/1,feature engineering,8900,0.4112,1.0
+popularity_decile,float64,"Decile of star rank, 1 = least popular",1-10,feature engineering,14640,0.6764,10.0
+is_popular,int64,1 if stars >= 10,0/1,feature engineering,21643,1.0,0
+is_maintained,int64,1 if pushed within the last 180 days,0/1,feature engineering,21643,1.0,0
+is_archived,int64,archived with NaN treated as 0,0/1,feature engineering,21643,1.0,0
+has_license,int64,1 if a license is declared,0/1,feature engineering,21643,1.0,0
+findings_per_file,float64,Findings divided by files scanned,per file,feature engineering,14353,0.6632,0.0

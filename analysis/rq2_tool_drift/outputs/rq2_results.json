@@ -1,0 +1,157 @@
+{
+  "multi_version_servers": 8900,
+  "drift_type_prevalence": [
+    {
+      "group": "silent_semantic",
+      "k": 3612,
+      "n": 8900,
+      "prevalence": 0.40584269662921346,
+      "ci_low": 0.395683501909872,
+      "ci_high": 0.41608313749500525
+    },
+    {
+      "group": "breaking",
+      "k": 1395,
+      "n": 8900,
+      "prevalence": 0.15674157303370786,
+      "ci_low": 0.14933674018992288,
+      "ci_high": 0.16444259558800056
+    },
+    {
+      "group": "additive",
+      "k": 1865,
+      "n": 8900,
+      "prevalence": 0.2095505617977528,
+      "ci_low": 0.20122136066164495,
+      "ci_high": 0.218130384996598
+    },
+    {
+      "group": "any drift",
+      "k": 4547,
+      "n": 8900,
+      "prevalence": 0.5108988764044944,
+      "ci_low": 0.500511093488914,
+      "ci_high": 0.5212772549331944
+    }
+  ],
+  "change_kinds": [
+    {
+      "group": "description_changed",
+      "k": 3242,
+      "n": 8900,
+      "prevalence": 0.3642696629213483,
+      "ci_low": 0.3543324855626757,
+      "ci_high": 0.3743239588300352,
+      "events": 4909
+    },
+    {
+      "group": "package_added",
+      "k": 991,
+      "n": 8900,
+      "prevalence": 0.11134831460674158,
+      "ci_low": 0.10498002525281311,
+      "ci_high": 0.11805196245777191,
+      "events": 4524
+    },
+    {
+      "group": "remote_added",
+      "k": 924,
+      "n": 8900,
+      "prevalence": 0.10382022471910113,
+      "ci_low": 0.0976530980809479,
+      "ci_high": 0.11032920566797456,
+      "events": 1175
+    },
+    {
+      "group": "package_removed",
+      "k": 840,
+      "n": 8900,
+      "prevalence": 0.09438202247191012,
+      "ci_low": 0.0884818745538496,
+      "ci_high": 0.10063216870582428,
+      "events": 4321
+    },
+    {
+      "group": "remote_removed",
+      "k": 586,
+      "n": 8900,
+      "prevalence": 0.06584269662921348,
+      "ci_low": 0.06087522906653477,
+      "ci_high": 0.07118478842803026,
+      "events": 810
+    },
+    {
+      "group": "remote_host_redirected",
+      "k": 370,
+      "n": 8900,
+      "prevalence": 0.04157303370786517,
+      "ci_low": 0.03761995442159443,
+      "ci_high": 0.04592167895775994,
+      "events": 441
+    },
+    {
+      "group": "runtime_hint_changed",
+      "k": 311,
+      "n": 8900,
+      "prevalence": 0.0349438202247191,
+      "ci_low": 0.03132483692231514,
+      "ci_high": 0.0389640896848289,
+      "events": 343
+    },
+    {
+      "group": "transport_changed",
+      "k": 84,
+      "n": 8900,
+      "prevalence": 0.00943820224719101,
+      "ci_low": 0.007630353275169474,
+      "ci_high": 0.01166934558126708,
+      "events": 90
+    },
+    {
+      "group": "package_registry_changed",
+      "k": 13,
+      "n": 8900,
+      "prevalence": 0.0014606741573033708,
+      "ci_low": 0.000853854612115245,
+      "ci_high": 0.0024976716879326222,
+      "events": 14
+    }
+  ],
+  "endpoint_redirect": {
+    "k": 370,
+    "n": 8900,
+    "ci": [
+      0.03761995442159443,
+      0.04592167895775994
+    ],
+    "events": 441
+  },
+  "security_association": [
+    {
+      "test": "Chi-square",
+      "chi2": 231.98028323170712,
+      "df": 1,
+      "p": 2.205381394525118e-52,
+      "n": 6699,
+      "cramers_v": 0.18570121603425435,
+      "v_magnitude": "small",
+      "odds_ratio": 2.9595489180993773,
+      "or_ci_low": 2.5635225386928626,
+      "or_ci_high": 3.4167555254222046,
+      "outcome": "has_high_severity"
+    },
+    {
+      "test": "Chi-square",
+      "chi2": 177.5078872502308,
+      "df": 1,
+      "p": 1.696563763165325e-40,
+      "n": 6699,
+      "cramers_v": 0.16233393190377843,
+      "v_magnitude": "small",
+      "odds_ratio": 2.3384708965926513,
+      "or_ci_low": 2.060146877568318,
+      "or_ci_high": 2.6543962441481286,
+      "outcome": "any_finding"
+    }
+  ]
+}
