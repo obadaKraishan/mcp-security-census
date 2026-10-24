@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23626281.svg)](https://doi.org/10.5281/zenodo.23626281)
+=======
+https://doi.org/10.5281/zenodo.23626281
+>>>>>>> 1c19663e4c53f09093dd433157f90086fb9320ec
 
 # Same Name, Different Server
 
