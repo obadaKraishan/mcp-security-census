@@ -1,4 +1,5 @@
 # Same Name, Different Server
+
 ### A Security Census of Silent Drift in the Model Context Protocol Ecosystem
 
 Replication package for the paper accepted at the **IEEE International
@@ -15,17 +16,17 @@ sample).
 
 ## What is in this repository
 
-| Folder | Contents |
-|---|---|
-| `setup/` | `config.py`, the single source of truth: threat catalogue (31 patterns), severity weights, drift definitions, fetch limits, sampling constants, statistical settings. `setup_environment.py` checks the environment before any collection. |
-| `data_collection/` | Registry harvest (cursor pagination), version-history fetch, and the GitHub code fetch (cached, resumable, 40 files and 200 KB per file per repository). |
-| `data_processing/` | Clean and merge, the scanner, drift detection, feature engineering into `master.csv`. |
-| `data_validation/` | Quality gate: schema, NaN discipline, value ranges, consistency with the findings file, sampled evidence per class. Exits non-zero on failure. |
-| `labeling/` | Ground-truth protocol (`labeling_guide.txt`), the sampling script, the completed label sheet, and the scoring script that produces per-class precision, the miss rate, and precision-corrected prevalence. |
-| `codebook/` | Generated variable dictionary for all 68 columns of `master.csv`. |
-| `analysis/rq*/` | One self-contained folder per analysis. Each writes `rqN_results.csv`, `rqN_results.json`, a statistical report with sample sizes, test statistics, raw and BH-adjusted p-values, effect sizes with intervals, and figures. |
-| `data/` | `raw/` (registry snapshot), `interim/` (merged servers, findings, drift events, tool definitions), `processed/` (`master.csv` and reports). |
-| `utils/` | I/O helpers, the statistics engine (Wilson intervals, Cliff's delta, chi-square with Cramér's V, bootstrap), and the report builder. |
+| Folder               | Contents                                                                                                                                                                                                                                       |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `setup/`           | `config.py`, the single source of truth: threat catalogue (31 patterns), severity weights, drift definitions, fetch limits, sampling constants, statistical settings. `setup_environment.py` checks the environment before any collection. |
+| `data_collection/` | Registry harvest (cursor pagination), version-history fetch, and the GitHub code fetch (cached, resumable, 40 files and 200 KB per file per repository).                                                                                       |
+| `data_processing/` | Clean and merge, the scanner, drift detection, feature engineering into `master.csv`.                                                                                                                                                        |
+| `data_validation/` | Quality gate: schema, NaN discipline, value ranges, consistency with the findings file, sampled evidence per class. Exits non-zero on failure.                                                                                                 |
+| `labeling/`        | Ground-truth protocol (`labeling_guide.txt`), the sampling script, the completed label sheet, and the scoring script that produces per-class precision, the miss rate, and precision-corrected prevalence.                                   |
+| `codebook/`        | Generated variable dictionary for all 68 columns of `master.csv`.                                                                                                                                                                            |
+| `analysis/rq*/`    | One self-contained folder per analysis. Each writes `rqN_results.csv`, `rqN_results.json`, a statistical report with sample sizes, test statistics, raw and BH-adjusted p-values, effect sizes with intervals, and figures.                |
+| `data/`            | `raw/` (registry snapshot), `interim/` (merged servers, findings, drift events, tool definitions), `processed/` (`master.csv` and reports).                                                                                            |
+| `utils/`           | I/O helpers, the statistics engine (Wilson intervals, Cliff's delta, chi-square with Cramér's V, bootstrap), and the report builder.                                                                                                          |
 
 Mapping to the paper: `rq1_threat_prevalence` and `rq5_ambient_authority`
 feed RQ1 (prevalence and delegation risk); `rq2_tool_drift` feeds RQ2;
@@ -39,7 +40,7 @@ No credentials are needed for this path. It re-runs validation, the codebook,
 scanner scoring, and all five analyses on the data included here.
 
 ```bash
-git clone <this-repo> && cd mcp-security-census
+git clone https://github.com/obadaKraishan/mcp-security-census.git && cd mcp-security-census
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 python run_all.py --analysis-only
