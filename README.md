@@ -64,32 +64,6 @@ The registry changes weekly, so a fresh harvest will not reproduce the
 August 2026 snapshot exactly; `data/raw/registry_servers.parquet` preserves
 the snapshot the paper reports on.
 
-## What was changed for public release
-
-The paper reports results in aggregate and names no server. To keep the
-artifact from serving as a target list, three finding-level files were
-transformed before release:
-
-- `data/interim/security_findings.csv` and both labeling sheets: server
-  names and owner/repo identifiers are replaced by salted SHA-256 hashes
-  (consistent across the three files), file paths are reduced to basenames,
-  evidence strings are truncated to 60 characters, and the evidence of every
-  `SEC_insecure_secrets` row is withheld. The `link` column of the labeling
-  sheets is removed. The salt is not stored.
-- `data/interim/code_index.csv` (the per-file fetch index with local paths)
-  is not included; `data_collection/03_fetch_server_code.py` regenerates it.
-
-All analyses run unchanged on the transformed files: the statistics depend
-only on class, stratum, label, and the per-server columns of `master.csv`,
-which carries registry names that are already public. Unredacted
-finding-level rows are available to researchers on request for verification.
-
-## Second-rater support
-
-`labeling/02_score_scanner.py --second-rater <sheet.csv>` computes Cohen's
-kappa against a second completed sheet; the protocol in `labeling_guide.txt`
-is written to be applied independently.
-
 ## Citation
 
 See `CITATION.cff`.
