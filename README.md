@@ -1,3 +1,5 @@
+[doi.org/10.5281/zenodo.23626281](https://doi.org/10.5281/zenodo.23626281)
+
 # Same Name, Different Server
 
 ### A Security Census of Silent Drift in the Model Context Protocol Ecosystem
