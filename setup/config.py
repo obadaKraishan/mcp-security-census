@@ -223,6 +223,10 @@ N_BOOTSTRAP = 5000
 CI_LEVEL = 0.95
 P_ADJUST_METHOD = "fdr_bh"        # Benjamini-Hochberg
 
+# Robustness settings (RQ2 association and redirection, RQ3 popularity)
+DRIFT_TRANSITION_CAP = 20         # cap per server for the bulk-republisher check
+N_SUBSAMPLE_DRAWS = 100           # repeated one-per-publisher draws
+
 CLIFFS_DELTA_BANDS = [(0.147, "negligible"), (0.33, "small"),
                       (0.474, "medium"), (float("inf"), "large")]
 CRAMERS_V_BANDS = [(0.1, "negligible"), (0.3, "small"),

@@ -1,7 +1,7 @@
 [
   {
     "variable": "name",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Canonical server name in the MCP registry",
     "unit": "-",
     "source_stage": "registry",
@@ -11,7 +11,7 @@
   },
   {
     "variable": "version",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Latest published version string",
     "unit": "-",
     "source_stage": "registry",
@@ -21,7 +21,7 @@
   },
   {
     "variable": "title",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Human-readable server title",
     "unit": "-",
     "source_stage": "registry",
@@ -31,7 +31,7 @@
   },
   {
     "variable": "description",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Server description text",
     "unit": "-",
     "source_stage": "registry",
@@ -41,7 +41,7 @@
   },
   {
     "variable": "repo_url",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Declared source repository URL",
     "unit": "-",
     "source_stage": "registry",
@@ -51,7 +51,7 @@
   },
   {
     "variable": "owner",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "GitHub owner parsed from repo_url",
     "unit": "-",
     "source_stage": "clean_and_merge",
@@ -61,7 +61,7 @@
   },
   {
     "variable": "repo",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "GitHub repository name parsed from repo_url",
     "unit": "-",
     "source_stage": "clean_and_merge",
@@ -81,7 +81,7 @@
   },
   {
     "variable": "status",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Registry status (active/deprecated)",
     "unit": "-",
     "source_stage": "registry",
@@ -101,7 +101,7 @@
   },
   {
     "variable": "published_at",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Timestamp of the latest version",
     "unit": "UTC",
     "source_stage": "registry",
@@ -111,7 +111,7 @@
   },
   {
     "variable": "updated_at",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Timestamp of the last registry update",
     "unit": "UTC",
     "source_stage": "registry",
@@ -131,7 +131,7 @@
   },
   {
     "variable": "first_published",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Timestamp of the earliest version",
     "unit": "UTC",
     "source_stage": "version history",
@@ -141,7 +141,7 @@
   },
   {
     "variable": "last_published",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Timestamp of the most recent version",
     "unit": "UTC",
     "source_stage": "version history",
@@ -161,7 +161,7 @@
   },
   {
     "variable": "package_types",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Package registries used (semicolon separated)",
     "unit": "-",
     "source_stage": "registry",
@@ -171,7 +171,7 @@
   },
   {
     "variable": "primary_package",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "First declared package registry, else 'none'",
     "unit": "-",
     "source_stage": "clean_and_merge",
@@ -191,7 +191,7 @@
   },
   {
     "variable": "remote_types",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Transport types declared",
     "unit": "-",
     "source_stage": "registry",
@@ -201,7 +201,7 @@
   },
   {
     "variable": "primary_transport",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "First declared transport, else 'none'",
     "unit": "-",
     "source_stage": "clean_and_merge",
@@ -221,7 +221,7 @@
   },
   {
     "variable": "code_status",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Outcome of source fetch (ok/not_found/forbidden/...)",
     "unit": "-",
     "source_stage": "code fetch",
@@ -281,7 +281,7 @@
   },
   {
     "variable": "language",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "Primary repository language reported by GitHub",
     "unit": "-",
     "source_stage": "GitHub API",
@@ -311,7 +311,7 @@
   },
   {
     "variable": "license",
-    "dtype": "str",
+    "dtype": "object",
     "definition": "SPDX license identifier, blank if none",
     "unit": "-",
     "source_stage": "GitHub API",
@@ -622,7 +622,7 @@
   {
     "variable": "popularity_decile",
     "dtype": "float64",
-    "definition": "Decile of star rank, 1 = least popular",
+    "definition": "Decile of star rank, 1 = least popular; ties are split by row order, so deciles 1-5 are all zero-star servers. RQ3 reports tie-aware star bins instead",
     "unit": "1-10",
     "source_stage": "feature engineering",
     "non_null": 14640,

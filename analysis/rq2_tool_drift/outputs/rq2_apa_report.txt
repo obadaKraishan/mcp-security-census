@@ -3,7 +3,7 @@
 ==============================================================================
  Research question : How often do tool definitions change silently across published versions?
  Registry snapshot : 2026-08
- Generated (UTC)   : 2026-10-24 14:17:24
+ Generated (UTC)   : 2026-10-26 13:49:02
  Alpha             : 0.05   |   CI: 95%   |   p-adjustment: Benjamini-Hochberg
  Bootstrap draws   : 5,000 (seed 42)
 ==============================================================================
@@ -58,11 +58,16 @@
  protocol provides no notification of the change.
 
 ------------------------------------------------------------------------------
- Descriptive statistics — Days between versions when a change occurred
+ Descriptive statistics — Timing of change in days (servers that changed)
 ------------------------------------------------------------------------------
  Group                        n       Mean         SD    Median       Q1       Q3
  --------------------------------------------------------------------------------
- days to first change     4,547     10.269     26.960     0.000    0.000    6.500
+ to first change          4,547     15.905     33.011     2.354    0.128   14.957
+ between changes         10,201     10.356     24.228     1.000    0.000    9.000
+ 'To first change' runs from a server's first publication to its
+ first change event; 'between changes' is the gap between
+ consecutive versions whose transition carried a change.
+ Changed within one day of first publication: 39.9% of 4,547 servers.
 
 ------------------------------------------------------------------------------
  Categorical test — Silent drift vs has_high_severity
@@ -95,11 +100,7 @@
 ------------------------------------------------------------------------------
  Robustness to bulk republishers
 ------------------------------------------------------------------------------
- A small number of servers publish many versions per day. The
- analysis was repeated with a cap of 20 transitions per server;
- the endpoint-redirection estimate moved by less than 0.05
- percentage points, so the finding is not driven by high-volume
- publishers.
+ Keeping at most 20 transitions per server, 370 servers show a redirection (4.16%) against 370 (4.16%) without the cap, a shift of 0.00 percentage points.
 
 ------------------------------------------------------------------------------
  Statistical approach and assumptions

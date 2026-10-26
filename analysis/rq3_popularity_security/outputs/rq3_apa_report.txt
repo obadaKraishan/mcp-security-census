@@ -3,7 +3,7 @@
 ==============================================================================
  Research question : Does popularity predict a server's security posture?
  Registry snapshot : 2026-08
- Generated (UTC)   : 2026-10-24 14:17:27
+ Generated (UTC)   : 2026-10-26 13:49:22
  Alpha             : 0.05   |   CI: 95%   |   p-adjustment: Benjamini-Hochberg
  Bootstrap draws   : 5,000 (seed 42)
 ==============================================================================
@@ -66,33 +66,29 @@
  "repository age vs findings showed a significant rank correlation (rho = 0.09, p < .001, n = 14,353)."
 
 ------------------------------------------------------------------------------
- High-severity prevalence by popularity decile (1 = least popular)
+ High-severity prevalence by star bin (tie-aware; bins close at rank-decile boundaries)
 ------------------------------------------------------------------------------
  Class / group                        k        n     prev             95% CI
  ---------------------------------------------------------------------------
- decile 1                           148    1,396   10.60%     [ 9.09, 12.33]
- decile 2                           264    1,422   18.57%     [16.63, 20.67]
- decile 3                           177    1,457   12.15%     [10.57, 13.93]
- decile 4                           109    1,436    7.59%     [ 6.33,  9.08]
- decile 5                           110    1,419    7.75%     [ 6.47,  9.26]
- decile 6                           158    1,450   10.90%     [ 9.39, 12.60]
- decile 7                           149    1,441   10.34%     [ 8.87, 12.02]
- decile 8                           175    1,441   12.14%     [10.56, 13.93]
- decile 9                           200    1,440   13.89%     [12.20, 15.77]
- decile 10                          109    1,451    7.51%     [ 6.27,  8.98]
+ 0                                  810    7,156   11.32%     [10.61, 12.07]
+ 1                                  223    2,123   10.50%     [ 9.27, 11.88]
+ 2                                  100      913   10.95%     [ 9.09, 13.14]
+ 3-6                                183    1,451   12.61%     [11.00, 14.42]
+ 7-28                               177    1,277   13.86%     [12.07, 15.86]
+ 29+                                106    1,433    7.40%     [ 6.15,  8.87]
 
 ------------------------------------------------------------------------------
- Categorical test — High-severity findings, most vs least popular
+ Categorical test — High-severity findings, most popular bin vs zero-star servers
 ------------------------------------------------------------------------------
  Test          : Chi-square
- n             : 2,847
- Statistic     : chi2(1) = 7.90
- p (raw)       : p = .005
- Effect size   : Cramer's V = 0.049 (negligible)
- Odds ratio    : OR = 0.685, 95% CI [0.529, 0.887]
+ n             : 8,589
+ Statistic     : chi2(1) = 18.87
+ p (raw)       : p < .001
+ Effect size   : Cramer's V = 0.046 (negligible)
+ Odds ratio    : OR = 0.626, 95% CI [0.507, 0.773]
  
  READY-TO-PASTE (IEEE prose):
- "High-severity findings, most vs least popular differed significantly (chi2(1) = 7.90, p = .005, Cramer's V = 0.05, OR = 0.68 [0.53, 0.89])."
+ "High-severity findings, most popular bin vs zero-star servers differed significantly (chi2(1) = 18.87, p < .001, Cramer's V = 0.05, OR = 0.63 [0.51, 0.77])."
 
 ------------------------------------------------------------------------------
  Logistic regression — predicting any high-severity finding

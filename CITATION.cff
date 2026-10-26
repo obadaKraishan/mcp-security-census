@@ -7,6 +7,8 @@ authors:
     affiliation: "Texas Tech University"
 year: 2026
 url: "https://github.com/obadaKraishan/mcp-security-census"
+doi: "10.5281/zenodo.23626281"
+version: "1.1.0"
 license: MIT
 keywords:
   - Model Context Protocol

@@ -60,7 +60,7 @@ D = {
     # repository signals (RQ3)
     "stars": ("GitHub stargazer count", "count", "GitHub API"),
     "log_stars": ("log(1 + stars); stars span several orders of magnitude", "log count", "clean_and_merge"),
-    "popularity_decile": ("Decile of star rank, 1 = least popular", "1-10", "feature engineering"),
+    "popularity_decile": ("Decile of star rank, 1 = least popular; ties are split by row order, so deciles 1-5 are all zero-star servers. RQ3 reports tie-aware star bins instead", "1-10", "feature engineering"),
     "is_popular": ("1 if stars >= 10", "0/1", "feature engineering"),
     "language": ("Primary repository language reported by GitHub", "-", "GitHub API"),
     "archived": ("1 if the repository is archived", "0/1", "GitHub API"),

@@ -3,7 +3,7 @@
 ==============================================================================
  Research question : What share of servers expose ambient authority or pass tokens through?
  Registry snapshot : 2026-08
- Generated (UTC)   : 2026-10-24 14:17:33
+ Generated (UTC)   : 2026-10-26 13:49:35
  Alpha             : 0.05   |   CI: 95%   |   p-adjustment: Benjamini-Hochberg
  Bootstrap draws   : 5,000 (seed 42)
 ==============================================================================

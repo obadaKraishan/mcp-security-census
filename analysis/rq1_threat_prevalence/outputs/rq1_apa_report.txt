@@ -3,7 +3,7 @@
 ==============================================================================
  Research question : How prevalent is each MCP threat class across the public server population?
  Registry snapshot : 2026-08
- Generated (UTC)   : 2026-10-24 14:17:21
+ Generated (UTC)   : 2026-10-26 13:48:57
  Alpha             : 0.05   |   CI: 95%   |   p-adjustment: Benjamini-Hochberg
  Bootstrap draws   : 5,000 (seed 42)
 ==============================================================================

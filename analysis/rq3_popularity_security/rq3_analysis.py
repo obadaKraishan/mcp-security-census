@@ -5,7 +5,9 @@
  Question: Does a server's popularity predict its security posture?
  Approach: Rank-based association (Spearman) between popularity and finding
            counts, because stars span several orders of magnitude; prevalence
-           of high-severity findings by popularity decile; logistic
+           of high-severity findings by tie-aware star bins (half the servers
+           have zero stars, so rank deciles would split tied servers by row
+           order and are not interpreted); logistic
            regression with popularity, maintenance, age, and size as
            predictors, reporting odds ratios; BH correction across the
            association tests.
@@ -36,6 +38,7 @@ plt.rcParams.update({"font.family": "serif", "font.size": 8,
                      "axes.spines.top": False, "axes.spines.right": False,
                      "figure.dpi": 300})
 BLUE, RED, GREY = "#2E5E8C", "#B0413E", "#7A7A7A"
+PAPER_BLUE, PAPER_GREEN = "#4C72B0", "#55A868"   # palette of the paper figures
 
 
 def main():
@@ -79,28 +82,44 @@ def main():
             a["p_adj"] = pa
             rb.spearman_result(a, a["pair"])
 
-    # ---- prevalence by popularity decile ------------------------------------
-    dec = d[d["popularity_decile"].notna()].copy()
+    # ---- prevalence by star bin ----------------------------------------------
+    # Half the scanned servers have zero stars, so rank deciles 1-5 would all
+    # be zero-star servers separated only by row order. Bins instead close at
+    # the upper star count of each rank decile, which keeps tied servers
+    # together: 0 | 1 | 2 | 3-6 | 7-28 | 29+ on the August 2026 snapshot.
+    dec_rank = pd.qcut(d["stars"].rank(method="first"), 10, labels=False)
+    edges = sorted(set(d.groupby(dec_rank)["stars"].max().astype(int)))[:-1]
+    lowers = [0] + [e + 1 for e in edges]
+    uppers = edges + [None]
     rows = []
-    for q in sorted(dec["popularity_decile"].unique()):
-        sub = dec[dec["popularity_decile"] == q]
+    for lo_s, hi_s in zip(lowers, uppers):
+        if hi_s is None:
+            sub, label = d[d["stars"] >= lo_s], f"{lo_s}+"
+        else:
+            sub = d[(d["stars"] >= lo_s) & (d["stars"] <= hi_s)]
+            label = str(lo_s) if lo_s == hi_s else f"{lo_s}-{hi_s}"
         k = int(sub["has_high_severity"].fillna(0).sum())
-        p = st.prevalence(k, len(sub), f"decile {int(q)}")
-        p["median_stars"] = float(sub["stars"].median())
+        p = st.prevalence(k, len(sub), label)
+        p["min_stars"], p["max_stars"] = float(sub["stars"].min()), float(sub["stars"].max())
         rows.append(p)
-    dec_df = pd.DataFrame(rows)
-    rb.prevalence_table(dec_df.to_dict("records"),
-                        "High-severity prevalence by popularity decile "
-                        "(1 = least popular)")
+    bin_df = pd.DataFrame(rows)
+    rb.prevalence_table(bin_df.to_dict("records"),
+                        "High-severity prevalence by star bin (tie-aware; "
+                        "bins close at rank-decile boundaries)")
+    for r in rows:
+        print(f"    stars {r['group']:<6s} n={r['n']:>6,}  {r['prevalence']:>7.2%}")
 
-    # top vs bottom decile contrast
-    lo_d, hi_d = dec_df.iloc[0], dec_df.iloc[-1]
-    con = st.two_proportion_test(int(hi_d["k"]), int(hi_d["n"]),
-                                 int(lo_d["k"]), int(lo_d["n"]),
-                                 "top decile", "bottom decile")
-    rb.chi_square_result(con, "High-severity findings, most vs least popular")
-    print(f"    top vs bottom decile OR="
-          f"{con.get('odds_ratio', float('nan')):.2f} {st.format_p(con['p'])}")
+    # most popular bin vs zero-star servers
+    lo_b, hi_b = bin_df.iloc[0], bin_df.iloc[-1]
+    con = st.two_proportion_test(int(hi_b["k"]), int(hi_b["n"]),
+                                 int(lo_b["k"]), int(lo_b["n"]),
+                                 f"{hi_b['group']} stars", "zero stars")
+    rb.chi_square_result(con, "High-severity findings, most popular bin vs "
+                              "zero-star servers")
+    print(f"    {hi_b['group']} vs 0 stars OR="
+          f"{con.get('odds_ratio', float('nan')):.2f} "
+          f"[{con.get('or_ci_low', float('nan')):.2f}, "
+          f"{con.get('or_ci_high', float('nan')):.2f}] {st.format_p(con['p'])}")
 
     # ---- logistic regression -------------------------------------------------
     d["log_files"] = np.log1p(d["n_files"].fillna(0))
@@ -139,16 +158,34 @@ def main():
     rb.detection_caveat()
 
     # ---- figures ---------------------------------------------------------------
-    fig, ax = plt.subplots(figsize=(3.45, 2.0))
-    x = dec_df["group"].str.extract(r"(\d+)").astype(int)[0]
-    ax.plot(x, dec_df["prevalence"] * 100, "-o", color=BLUE, ms=4, lw=1.2)
-    ax.fill_between(x, dec_df["ci_low"] * 100, dec_df["ci_high"] * 100,
-                    color=BLUE, alpha=.15, lw=0)
-    ax.set_xlabel("popularity decile (1 = least popular)")
-    ax.set_ylabel("high-severity findings (%)")
-    ax.set_xticks(range(1, 11))
-    ax.grid(color="#DDDDDD", lw=.45); ax.set_axisbelow(True)
-    fig.tight_layout(); fig.savefig(FIG / "rq3_decile.pdf"); plt.close(fig)
+    with plt.rc_context({"font.family": "serif",
+                         "font.serif": ["Liberation Serif", "Times New Roman", "DejaVu Serif"],
+                         "font.size": 8, "pdf.fonttype": 42}):
+        fig, ax = plt.subplots(figsize=(3.45, 2.05))
+        x = np.arange(len(bin_df))
+        top = len(bin_df) - 1
+        cols = [PAPER_GREEN if i == top else PAPER_BLUE for i in x]
+        y = bin_df["prevalence"] * 100
+        err = [y - bin_df["ci_low"] * 100, bin_df["ci_high"] * 100 - y]
+        ax.bar(x, y, width=.62, color=cols, zorder=2)
+        ax.errorbar(x, y, yerr=err, fmt="none", ecolor="#222222",
+                    elinewidth=.7, capsize=2, zorder=3)
+        for i, (v, hi_) in enumerate(zip(y, bin_df["ci_high"] * 100)):
+            ax.text(i, hi_ + .5, f"{v:.1f}", ha="center", va="bottom", fontsize=7)
+        ax.set_xticks(x)
+        ax.set_xticklabels([f"{g.replace('-', chr(8211))}\nn={n:,}"
+                            for g, n in zip(bin_df["group"], bin_df["n"])],
+                           fontsize=6.6)
+        ax.set_xlabel("GitHub stars (tie-aware bins)")
+        ax.set_ylabel("high-severity servers (%)")
+        ax.set_ylim(0, max(bin_df["ci_high"] * 100) + 3.2)
+        ax.grid(axis="y", color="#CCCCCC", lw=.45, ls=(0, (2, 2)))
+        ax.set_axisbelow(True)
+        for sp in ("top", "right"):
+            ax.spines[sp].set_visible(False)
+        fig.tight_layout()
+        fig.savefig(FIG / "rq3_stars.pdf")
+        plt.close(fig)
 
     if not lr.empty:
         terms = lr[lr["term"] != "const"]
@@ -169,10 +206,10 @@ def main():
         fig.tight_layout(); fig.savefig(FIG / "rq3_logistic.pdf"); plt.close(fig)
     print(f"  [SAVED] figures -> {FIG}")
 
-    save_csv(dec_df, OUT / "rq3_results.csv", "rq3 deciles")
+    save_csv(bin_df, OUT / "rq3_results.csv", "rq3 star bins")
     save_json({"n": len(d), "associations": assoc,
-               "deciles": dec_df.to_dict("records"),
-               "top_vs_bottom": con,
+               "star_bins": bin_df.to_dict("records"),
+               "top_bin_vs_zero_stars": con,
                "logistic": lr.to_dict("records") if not lr.empty else [],
                "logistic_n": int(lr.attrs.get("n", 0)) if not lr.empty else 0},
               OUT / "rq3_results.json", "rq3 results")

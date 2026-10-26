@@ -6,9 +6,12 @@
            versions?
  Approach: Over multi-version servers, prevalence of each drift type with
            Wilson intervals; endpoint-host redirection isolated as the
-           closest observable analogue of a rug pull; time-to-first-drift;
-           association between drift and security posture (chi-square with
-           odds ratios, BH-corrected); robustness under a transition cap.
+           closest observable analogue of a rug pull; timing of change (days
+           from first publication to the first change, and days between
+           consecutive changed versions); association between drift and
+           security posture (chi-square with odds ratios, BH-corrected);
+           robustness of redirection under a per-server transition cap.
+           Adjusted models and publisher-level checks: rq2_robustness.py.
  Output  : analysis/rq2_tool_drift/outputs/rq2_results.{csv,json}
            rq2_apa_report.txt + figures/
 ============================================================================
@@ -97,13 +100,34 @@ def main():
             "protocol provides no notification of the change.")
     print(f"    endpoint redirected  {n_red:>6,}  {n_red/M:>7.2%}")
 
-    # ---- time to first drift ------------------------------------------------
+    # ---- timing of change ----------------------------------------------------
+    # Two clocks, reported separately: (a) days from a server's first
+    # publication to its first change event; (b) days between consecutive
+    # versions whose transition carried a change.
+    timing = {}
     if "days_between" in ev.columns and ev["days_between"].notna().any():
-        first = (ev.dropna(subset=["days_between"])
-                   .groupby("server_name")["days_between"].min())
-        rb.descriptives_table([st.describe(first, "days to first change")],
-                              "Days between versions when a change occurred")
-        print(f"    median days to change {first.median():.0f}")
+        to_pub = pd.to_datetime(ev["to_published"], utc=True, errors="coerce")
+        first_change = to_pub.groupby(ev["server_name"]).min()
+        first_pub = pd.to_datetime(multi.set_index("name")["first_published"],
+                                   utc=True, errors="coerce")
+        to_first = ((first_change - first_pub.reindex(first_change.index))
+                    .dt.total_seconds() / 86400).dropna()
+        gaps = (ev.drop_duplicates(["server_name", "from_version", "to_version"])
+                ["days_between"].dropna())
+        d_first = st.describe(to_first, "to first change")
+        d_gap = st.describe(gaps, "between changes")
+        within_day = float((to_first <= 1).mean())
+        rb.descriptives_table([d_first, d_gap], "Timing of change in days (servers that changed)")
+        rb.text("'To first change' runs from a server's first publication to its",
+                "first change event; 'between changes' is the gap between",
+                "consecutive versions whose transition carried a change.",
+                f"Changed within one day of first publication: {within_day:.1%} "
+                f"of {len(to_first):,} servers.")
+        timing = {"to_first_change": d_first, "between_changed_versions": d_gap,
+                  "share_within_one_day": within_day}
+        print(f"    days to first change  median {d_first['median']:.1f} "
+              f"(mean {d_first['mean']:.1f}); within a day {within_day:.1%}")
+        print(f"    days between changes  median {d_gap['median']:.1f}")
 
     # ---- drift vs security posture ------------------------------------------
     tests = []
@@ -134,13 +158,31 @@ def main():
             rb.chi_square_result(
                 t_, f"Silent drift vs {t_['outcome']}", p_adj=pa)
 
-    # ---- robustness note -----------------------------------------------------
-    rb.section("Robustness to bulk republishers")
-    rb.text("A small number of servers publish many versions per day. The",
-            "analysis was repeated with a cap of 20 transitions per server;",
-            "the endpoint-redirection estimate moved by less than 0.05",
-            "percentage points, so the finding is not driven by high-volume",
-            "publishers.")
+    # ---- robustness: bulk republishers ---------------------------------------
+    # Recompute redirection keeping only each server's first N transitions,
+    # ordered by publication time in the raw version history.
+    cap = {}
+    if config.FILE_VERSIONS.exists():
+        v = pd.read_parquet(config.FILE_VERSIONS,
+                            columns=["name", "version", "published_at"])
+        v["t"] = pd.to_datetime(v["published_at"], utc=True, errors="coerce")
+        v = v.sort_values(["name", "t"]).drop_duplicates(["name", "version"])
+        v["idx"] = v.groupby("name").cumcount()     # transition k ends at idx k
+        rd = redirect.merge(v[["name", "version", "idx"]], how="left",
+                            left_on=["server_name", "to_version"],
+                            right_on=["name", "version"])
+        n_cap = int(rd.loc[rd["idx"] <= config.DRIFT_TRANSITION_CAP,
+                           "server_name"].nunique())
+        shift = (n_red - n_cap) / M * 100
+        cap = {"cap": config.DRIFT_TRANSITION_CAP, "redirected_full": int(n_red),
+               "redirected_capped": n_cap, "shift_points": shift}
+        rb.section("Robustness to bulk republishers")
+        rb.text(f"Keeping at most {config.DRIFT_TRANSITION_CAP} transitions per "
+                f"server, {n_cap:,} servers show a redirection ({n_cap / M:.2%}) "
+                f"against {n_red:,} ({n_red / M:.2%}) without the cap, a shift of "
+                f"{shift:.2f} percentage points.")
+        print(f"    redirect, cap {config.DRIFT_TRANSITION_CAP:<3d}    {n_cap:>6,}  "
+              f"shift {shift:.2f} pts")
     rb.methods_note()
 
     # ---- figures --------------------------------------------------------------
@@ -176,7 +218,9 @@ def main():
                "endpoint_redirect": {"k": int(n_red), "n": M,
                                      "ci": [lo, hi],
                                      "events": int(len(redirect))},
-               "security_association": tests},
+               "security_association": tests,
+               "timing": timing,
+               "transition_cap": cap},
               OUT / "rq2_results.json", "rq2 results")
     save_txt(rb.render(), OUT / "rq2_apa_report.txt", "rq2 APA report")
     print("  RQ2 COMPLETE")

@@ -1,0 +1,17 @@
+RQ2 robustness: silent drift and high-severity findings
+Population: 6,699 multi-version servers with fetched code (6,075 repositories, 4,375 GitHub owners).
+
+High-severity rate: 21.8% with silent drift, 8.6% without.
+Bivariate: OR = 2.96 [2.56, 3.42], chi2(1) = 231.98, V = 0.19
+Adjusted, clustered by repository: OR = 2.87 [2.43, 3.40], n = 6,699, pseudo-R2 = 0.087; version count OR = 1.08, p = 0.220
+Adjusted, any finding as outcome: OR = 2.35 [2.01, 2.74], n = 6,699
+One server per repository (first listed): OR = 2.85 [2.45, 3.32], n = 6,075
+Adjusted, clustered by GitHub owner: OR = 2.87 [1.49, 5.53], n = 6,699
+One server per GitHub owner (seed 42): OR = 1.63 [1.33, 2.00], n = 4,375; median over 100 draws 1.63 [1.56, 1.71]
+The two owners with the most drifting, high-severity servers hold 328 servers; 82% of those both drift and carry a high-severity finding. Without them: OR = 1.51 [1.23, 1.84], n = 6,371
+
+RQ1 check: high-severity prevalence is 11.1% per server and 10.0% with one server per GitHub owner (8,333 owners; median over 100 draws).
+
+Redirection: 370 servers from 198 registry namespaces; the largest holds 100. Without it, 3.07% of multi-version servers; one server per namespace, median 3.02% over 100 draws.
+
+All models are correlational; adjustment rules out the measured confounders only.

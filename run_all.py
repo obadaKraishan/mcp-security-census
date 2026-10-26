@@ -41,6 +41,7 @@ GATE = [
 ANALYSES = [
     ["python", "analysis/rq1_threat_prevalence/rq1_analysis.py"],
     ["python", "analysis/rq2_tool_drift/rq2_analysis.py"],
+    ["python", "analysis/rq2_tool_drift/rq2_robustness.py"],
     ["python", "analysis/rq3_popularity_security/rq3_analysis.py"],
     ["python", "analysis/rq4_scanner_accuracy/rq4_analysis.py"],
     ["python", "analysis/rq5_ambient_authority/rq5_analysis.py"],
